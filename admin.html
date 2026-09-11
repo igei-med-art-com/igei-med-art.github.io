@@ -87,7 +87,7 @@
     <ol>
       <li>GitHubにログインし <a href="https://github.com/settings/personal-access-tokens/new" target="_blank" rel="noopener">Fine-grained token の作成ページ</a> を開く</li>
       <li>Token name: 任意（例 igei-admin）／ Expiration: 1年など</li>
-      <li>Repository access →「Only select repositories」→ <b>newnetjp/igei</b> を選択</li>
+      <li>Repository access →「Only select repositories」→ <b class="repo">newnetjp/igei</b> を選択</li>
       <li>Permissions → Repository permissions → <b>Contents: Read and write</b></li>
       <li>「Generate token」→ 表示されたトークン（github_pat_…）を下に貼り付けて保存</li>
     </ol>
@@ -120,7 +120,9 @@
 </div>
 
 <script>
-const REPO='newnetjp/igei';
+/* 公開先で自動切替: igei-med-art.com(新) / newnet.jp(旧) */
+const REPO=/igei-med-art/.test(location.hostname)?'igei-med-art/igei-med-art.github.io':'newnetjp/igei';
+document.querySelectorAll('.repo').forEach(e=>e.textContent=REPO);
 const API='https://api.github.com/repos/'+REPO+'/contents/';
 const SECTION_KEYS=[
   ['about','沿革・ABOUT'],
@@ -256,7 +258,7 @@ async function load(){
     renderForm();
     msg('読み込みました。編集して「保存して公開」を押してください。');
   }catch(e){
-    msg('読み込みに失敗しました。トークンの権限（newnetjp/igei の Contents: Read and write）を確認してください。\n'+e.message,'err');
+    msg('読み込みに失敗しました。トークンの権限（'+REPO+' の Contents: Read and write）を確認してください。\n'+e.message,'err');
   }
 }
 async function save(){

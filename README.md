@@ -1,6 +1,6 @@
 # igei
 
-IGEI Inc.｜医療藝術融合会社 公式サイト → https://newnet.jp/igei/
+IGEI Inc.｜医療藝術融合会社 公式サイト → https://igei-med-art.com/ （公開リポジトリ: igei-med-art/igei-med-art.github.io。newnet.jp/igei は旧URL）
 
 - `index.html` — 薬箱ランディング。ロゴ正面（平面に見える）→前傾→水平回転→裏面→プルタブ（白線）から開封→
   画面下部へ移動→錠剤シート(MENU)と展開前の添付文書（支給画像）が射出。
@@ -23,9 +23,10 @@ IGEI Inc.｜医療藝術融合会社 公式サイト → https://newnet.jp/igei/
 
 ## 更新方法（GUI）
 
-1. https://newnet.jp/igei/admin.html を開く
+1. https://igei-med-art.com/admin.html を開く（HTTPS証明書が発行されるまでは http:// で）
 2. 初回のみ GitHub Fine-grained トークンを作成して保存
-   （Repository access: newnetjp/igei ／ Permissions: Contents: Read and write）
+   （Repository access: igei-med-art/igei-med-art.github.io ／ Permissions: Contents: Read and write。
+   admin は開いたドメインからコミット先リポジトリを自動で選ぶ）
 3. フォームで編集 →「保存して公開」→ 約1分で反映
 
 admin は GitHub Contents API で `content.json` と `img/` を直接コミットする。

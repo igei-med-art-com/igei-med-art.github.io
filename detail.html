@@ -3,12 +3,22 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<!-- seo:start（admin.html の「SEO」設定から自動生成。手で編集しない） -->
 <title>IGEI Inc.｜医療藝術融合会社</title>
 <meta name="description" content="IGEI = 医藝。MED〈医(i)〉+ ART〈藝(gei)〉 PROJECT FROM JAPAN.">
+<meta name="keywords" content="IGEI, 医藝, 陣内良飛, 医療, 藝術, アート, Ryoto Jinnai">
+<link rel="canonical" href="https://igei-med-art.com/detail.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="IGEI Inc.｜医療藝術融合会社">
+<meta property="og:title" content="IGEI Inc.｜医療藝術融合会社">
+<meta property="og:description" content="IGEI = 医藝。MED〈医(i)〉+ ART〈藝(gei)〉 PROJECT FROM JAPAN.">
+<meta property="og:url" content="https://igei-med-art.com/detail.html">
+<meta property="og:image" content="https://igei-med-art.com/img/logo.jpg">
+<meta property="og:locale" content="ja_JP">
+<meta name="twitter:card" content="summary_large_image">
+<!-- seo:end -->
 <link rel="icon" href='data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="-119 -372 1420 1420"><rect x="-119" y="-372" width="1420" height="1420" fill="black"/><g fill="white"><rect x="0" y="0" width="178" height="676"/><path d="M570,0 570,126 313,339 543,528 543,475 387,338 574,165 574,676 567,676 178,341 178,314Z"/><path d="M969,0 969,126 700,338 969,550 969,676 574,357 574,319Z"/><path d="M969,165 790,314 726,314 700,338 726,362 790,362 969,483Z"/><rect x="1005" y="0" width="177" height="676"/></g></svg>'>
 <meta name="theme-color" content="#000000">
-<meta property="og:title" content="IGEI Inc.｜医療藝術融合会社">
-<meta property="og:image" content="https://newnet.jp/igei/img/logo.jpg">
 <style>
   :root{
     --ink:#2a63b0;          /* 指示書 R42 G99 B176 */
@@ -96,7 +106,7 @@
     <span class="logo" aria-hidden="true"></span>
   </a>
   <nav class="tb-links" aria-label="セクション">
-    <a href="insert.html">TOP</a><a href="insert.html#about">ABOUT</a><a href="insert.html#exhibition">EXHIBITION</a><a href="insert.html#artwork">ARTWORK</a><a href="insert.html#project">PROJECT</a><a href="insert.html#commission">COMMISSION</a><a href="insert.html#shop">SHOP</a><a href="insert.html#podcast">PODCAST</a><a href="insert.html#media">MEDIA</a><a href="insert.html#sns">SNS</a><a href="insert.html#contact">CONTACT</a>
+    <a href="insert.html">TOP</a><a href="insert.html#about" data-en="about">ABOUT</a><a href="insert.html#exhibition" data-en="exhibition">EXHIBITION</a><a href="insert.html#artwork" data-en="artwork">ARTWORK</a><a href="insert.html#project" data-en="project">PROJECT</a><a href="insert.html#commission" data-en="commission">COMMISSION</a><a href="insert.html#shop" data-en="shop">SHOP</a><a href="insert.html#podcast" data-en="podcast">PODCAST</a><a href="insert.html#media" data-en="media">MEDIA</a><a href="insert.html#sns" data-en="sns">SNS</a><a href="insert.html#contact" data-en="contact">CONTACT</a>
   </nav>
 </header>
 
@@ -153,6 +163,16 @@
   fetch('content.json',{cache:'no-store'})
     .then(function(r){return r.ok?r.json():null})
     .then(function(c){
+      /* 項目名・サイト名は admin で編集した値を優先 */
+      if(c&&c.labels&&c.labels[key]){
+        t=c.labels[key];
+        h.querySelector('.jp').textContent=t[0];h.querySelector('.en').textContent=t[1];
+        document.querySelectorAll('[data-en]').forEach(function(el){var l=c.labels[el.dataset.en];if(l)el.textContent=l[1]});
+      }
+      var base=(c&&c.site&&c.site.title||'IGEI Inc.').split('｜')[0];
+      document.title=base+'｜'+t[0]+' / '+t[1];
+      var sum=(((c||{}).sections||{})[key]||{}).summary||'';
+      if(sum.trim()){var md=document.querySelector('meta[name=description]');if(md)md.content=sum.trim().replace(/\s+/g,' ').slice(0,160)}
       var arts=(((c||{}).sections||{})[key]||{}).articles||[];
       if(!arts.length)return;
       var box=document.getElementById('arts');

@@ -15,10 +15,15 @@ IGEI Inc.｜医療藝術融合会社 公式サイト → https://igei-med-art.co
   右上に「=QUAL M=DICAL C=NT=R」の吊り下げ看板（添付文書モードのみ常時表示）→ https://igei.base.shop
 - `detail.html?s=<項目>` — 各項目の詳細ページ。角丸のタイトル（二字熟語 / 英語）＋記事ボックス。
   TOP で添付文書の最上部へ。ここには吊り下げ看板を出さない。
-- `content.json` — 編集可能なコンテンツ。`sections.<項目>.summary`（概要）と `articles`（記事: title / sub /
+- `content.json` — 編集可能なコンテンツ。`site`（サイト名・description・URL・OGP画像・SNS・ショップ・noindex・GA・
+  Search Console）/ `pages`（ページ別 title・description）/ `index`（薬箱画面の文言）/ `paper`（添付文書の固定文）/
+  `labels`（項目名 二字熟語・英語）を admin から編集。各ページは読み込み時に `data-t` / `data-label` 等の要素へ反映する。`sections.<項目>.summary`（概要）と `articles`（記事: title / sub /
   date / text / images[] / link / updated）。【近況・RECENT WORKS】は全項目の記事のうち `updated` が新しい3件を
   自動表示し、記事の先頭画像をサムネイルにする。
-- `admin.html` — 更新用GUI（公開ページからは非リンク）
+- `admin.html` — 更新用GUI（公開ページからは非リンク）。保存時に content.json のほか、3ページの `<head>` の
+  `<!-- seo:start -->`〜`<!-- seo:end -->`（title / description / canonical / OGP / twitter card / JSON-LD /
+  GA / 所有権確認）と `sitemap.xml` / `robots.txt` を生成して直接コミットする（変更があるファイルだけ）。
+  head のこのブロックは手で編集しない。
 - `img/` — 支給素材と admin からアップロードした画像
 
 ## 更新方法（GUI）

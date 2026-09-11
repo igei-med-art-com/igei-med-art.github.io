@@ -41,6 +41,15 @@
   .primary:hover{background:#a63f46}
   .ghost{border-style:dashed}
   .row{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:0 14px}
+  @media (max-width:520px){.grid2{grid-template-columns:1fr}}
+  .lbl{display:grid;grid-template-columns:110px 1fr 1fr;gap:8px;align-items:center;margin:6px 0}
+  .lbl span{font-size:12px;font-weight:700}
+  @media (max-width:520px){.lbl{grid-template-columns:1fr 1fr}.lbl span{grid-column:1/-1}}
+  .check{display:flex;gap:8px;align-items:center;font-weight:700;font-size:12.5px;margin:12px 0 4px}
+  .check input{width:16px;height:16px}
+  .og{display:flex;gap:12px;align-items:flex-start;flex-wrap:wrap}
+  .og img{width:140px;aspect-ratio:1.91/1;object-fit:cover;border:1px solid #bbb;background:#f2f2f0}
   .art{border:1.5px solid var(--ink);border-radius:10px;padding:12px 16px 14px;margin:10px 0;position:relative}
   .art .num{position:absolute;top:-10px;left:12px;background:#fff;padding:0 6px;font-size:11px;font-weight:700;color:var(--ink)}
   .thumbs{display:flex;gap:8px;flex-wrap:wrap;margin:6px 0}
@@ -63,6 +72,8 @@
   details{border:1.5px solid #000;padding:10px 14px;margin:12px 0;font-size:13px}
   summary{font-weight:700;cursor:pointer}
   details ol{margin:8px 0 0;padding-left:20px}
+  details.grp{border-color:#999}
+  details.grp summary{font-size:14px}
   a{color:inherit}
   .savebar{
     position:sticky;bottom:0;background:#fff;border-top:2px solid #000;
@@ -79,7 +90,7 @@
     <svg viewBox="0 0 1182 676" aria-hidden="true"><g fill="#000"><rect x="0" y="0" width="178" height="676"/><path d="M570,0 570,126 313,339 543,528 543,475 387,338 574,165 574,676 567,676 178,341 178,314Z"/><path d="M969,0 969,126 700,338 969,550 969,676 574,357 574,319Z"/><path d="M969,165 790,314 726,314 700,338 726,362 790,362 969,483Z"/><rect x="1005" y="0" width="177" height="676"/></g></svg>
     サイト管理
   </h1>
-  <p class="sub">保存すると <a href="https://newnet.jp/igei/insert.html" target="_blank" rel="noopener">newnet.jp/igei</a> に約1分で反映されます。このページは公開サイトからリンクされていません（URL直打ちで開きます）。</p>
+  <p class="sub">保存すると <a class="site-link" href="./" target="_blank" rel="noopener">公開サイト</a> に約1分で反映されます。このページは公開サイトからリンクされていません（URL直打ちで開きます）。</p>
 
   <h2>1. アクセストークン</h2>
   <details>
@@ -99,11 +110,41 @@
 
   <div id="editor" hidden>
 
-    <h2>2. 基本設定</h2>
-    <label for="ig">INSTAGRAM ユーザー名（@は不要）</label>
-    <input type="text" id="ig" placeholder="igei_official">
+    <h2>2. サイト共通・SEO</h2>
+    <p class="hint">検索結果・SNSシェア時の見え方。保存すると各ページの &lt;head&gt;（title / description / OG / canonical）と sitemap.xml / robots.txt を書き換えます。</p>
+    <div id="f-site"></div>
+    <label>OGP画像（SNSでシェアされた時の画像。推奨 1200×630）</label>
+    <div class="og">
+      <img id="ogPreview" alt="">
+      <div>
+        <input type="file" id="ogFile" accept="image/*">
+        <p class="hint">ファイルを選ぶと保存時にアップロードして差し替えます。現在: <span id="ogPath"></span></p>
+      </div>
+    </div>
+    <label class="check"><input type="checkbox" id="noindex"> 検索エンジンに載せない（noindex。公開前・確認中のときだけON）</label>
 
-    <h2>3. 各項目</h2>
+    <details class="grp">
+      <summary>ページ別の title / description</summary>
+      <div id="f-pages"></div>
+    </details>
+
+    <details class="grp">
+      <summary>解析・所有権確認（Google Analytics / Search Console）</summary>
+      <div id="f-tools"></div>
+    </details>
+
+    <h2>3. トップページ（薬箱）の文言</h2>
+    <div id="f-index" class="grid2"></div>
+
+    <h2>4. 添付文書の固定文</h2>
+    <p class="hint">添付文書（insert.html）の見出しまわり。改行はそのまま反映されます。</p>
+    <div id="f-paper"></div>
+
+    <h2>5. 項目名（二字熟語 / 英語）</h2>
+    <p class="hint">錠剤シートの刻印（画像）は変わりません。添付文書の見出し・上部バー・二字熟語表・詳細ページに反映されます。</p>
+    <div id="f-labels"></div>
+
+    <h2>6. 各項目の内容</h2>
     <p class="hint">「概要」は添付文書に数行だけ出ます（空欄なら COMING SOON）。「記事」は MORE を押した先の詳細ページに上から順に並びます。
       全項目の記事のうち保存が新しい3件が添付文書の【近況・RECENT WORKS】に、記事の1枚目の画像をサムネイルにして出ます。</p>
     <div id="sections"></div>
@@ -124,20 +165,56 @@
 const REPO=/igei-med-art/.test(location.hostname)?'igei-med-art/igei-med-art.github.io':'newnetjp/igei';
 document.querySelectorAll('.repo').forEach(e=>e.textContent=REPO);
 const API='https://api.github.com/repos/'+REPO+'/contents/';
-const SECTION_KEYS=[
-  ['about','沿革・ABOUT'],
-  ['exhibition','展示・EXHIBITION'],
-  ['artwork','作品・ARTWORK'],
-  ['project','計画・PROJECT'],
-  ['commission','依頼・COMMISSION'],
-  ['shop','売店・SHOP'],
-  ['podcast','放送・PODCAST'],
-  ['media','媒体・MEDIA'],
-  ['sns','交流・SNS'],
-  ['contact','連絡・CONTACT'],
-];
+const SECTION_KEYS=['about','exhibition','artwork','project','commission','shop','podcast','media','sns','contact'];
+const DEFAULT_LABELS={about:['沿革','ABOUT'],exhibition:['展示','EXHIBITION'],artwork:['作品','ARTWORK'],project:['計画','PROJECT'],commission:['依頼','COMMISSION'],shop:['売店','SHOP'],podcast:['放送','PODCAST'],media:['媒体','MEDIA'],sns:['交流','SNS'],contact:['連絡','CONTACT']};
+
+/* 単純な入力欄: [パス, ラベル, 説明, textarea?] */
+const FIELDS={
+  site:[
+    ['site.title','サイト名','検索結果・ブラウザのタブ・OGPの site_name に使う基本の名前'],
+    ['site.description','サイトの説明（description）','検索結果の下に出る説明文。全角 60〜120 字くらい',1],
+    ['site.keywords','キーワード','カンマ区切り。任意'],
+    ['site.url','公開URL','末尾の / まで。canonical / sitemap に使う'],
+    ['site.twitter','X (Twitter) アカウント','@ から。任意'],
+    ['instagram','INSTAGRAM ユーザー名','@ は不要'],
+    ['site.shopUrl','オンラインショップ URL','添付文書右上の吊り下げ看板のリンク先'],
+    ['site.shopLabel','ショップ名','看板の読み上げ・alt に使う'],
+  ],
+  pages:[
+    ['pages.index.title','トップページ（薬箱）の title',''],
+    ['pages.index.description','トップページの description','',1],
+    ['pages.insert.title','添付文書ページの title',''],
+    ['pages.insert.description','添付文書ページの description','',1],
+    ['pages.detail.title','詳細ページの title（項目名は自動で付きます）',''],
+    ['pages.detail.description','詳細ページの description（概要があれば概要を優先）','',1],
+  ],
+  tools:[
+    ['site.gaId','Google Analytics 測定ID','G-XXXXXXXXXX。空欄なら計測タグは入りません'],
+    ['site.siteVerification','Search Console 所有権確認コード','HTMLタグ方式の content="…" の中身だけ'],
+  ],
+  index:[
+    ['index.hint','箱の下の案内',''],
+    ['index.package','戻るボタン',''],
+    ['index.more','添付文書へのボタン',''],
+  ],
+  paper:[
+    ['paper.established','左上のクレジット','',1],
+    ['paper.code','バーコード下のコード',''],
+    ['paper.company','会社名（見出し）',''],
+    ['paper.lede','英文リード','',1],
+    ['paper.kanji','ロゴ上の和名',''],
+    ['paper.kana','ロゴ上のカナ',''],
+    ['paper.igNote','INSTAGRAM 注記の前置き',''],
+    ['paper.copyTitle','赤枠の見出し',''],
+    ['paper.copy','赤枠の本文','',1],
+    ['paper.worksTitle','近況の見出し',''],
+    ['paper.footer','フッター',''],
+  ],
+};
+
 let token=localStorage.getItem('igei_token')||'';
-let state={instagram:'igei_official',sections:{}};
+let state={};
+let ogFile=null;
 
 const $=id=>document.getElementById(id);
 const b64e=s=>btoa(unescape(encodeURIComponent(s)));
@@ -147,6 +224,9 @@ const fileB64=f=>new Promise((res,rej)=>{
   r.onload=()=>res(r.result.split(',')[1]);
   r.onerror=rej;r.readAsDataURL(f);
 });
+const get=(o,p)=>p.split('.').reduce((x,k)=>x&&x[k],o);
+const set=(o,p,v)=>{const ks=p.split('.');let t=o;ks.slice(0,-1).forEach(k=>{t[k]=t[k]||{};t=t[k]});t[ks.at(-1)]=v};
+const esc=s=>String(s||'').replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
 function msg(t,cls){const s=$('status');s.textContent=t;s.className='status'+(cls?' '+cls:'')}
 
 async function gh(path,opts={}){
@@ -156,12 +236,127 @@ async function gh(path,opts={}){
   });
   if(!r.ok){
     let d='';try{d=(await r.json()).message||''}catch(e){}
-    throw new Error(path+' → HTTP '+r.status+(d?'（'+d+'）':''));
+    const err=new Error(path+' → HTTP '+r.status+(d?'（'+d+'）':''));err.status=r.status;throw err;
   }
   return r.json();
 }
+/* テキストファイルを取得(無ければ null)・変更があるときだけ書く */
+async function getText(path){
+  try{const j=await gh(path);return {sha:j.sha,text:b64d(j.content)}}
+  catch(e){if(e.status===404)return null;throw e}
+}
+async function putText(path,text,message){
+  const cur=await getText(path);
+  if(cur&&cur.text===text)return false;
+  await gh(path,{method:'PUT',body:JSON.stringify({message,content:b64e(text),...(cur?{sha:cur.sha}:{})})});
+  return true;
+}
+
+/* ---------- SEO 生成 ---------- */
+function labels(){return state.labels||DEFAULT_LABELS}
+function siteUrl(){let u=(state.site.url||'').trim()||location.origin+'/';if(!/\/$/.test(u))u+='/';return u}
+function absUrl(p){return /^https?:/.test(p)?p:siteUrl()+p.replace(/^\/+/,'')}
+function seoBlock(page){
+  const s=state.site,p=(state.pages||{})[page]||{};
+  const title=p.title||s.title,desc=p.description||s.description;
+  const url=siteUrl()+(page==='index'?'':page+'.html');
+  const og=absUrl(s.ogImage||'img/logo.jpg');
+  const L=['<!-- seo:start（admin.html の「SEO」設定から自動生成。手で編集しない） -->',
+    '<title>'+esc(title)+'</title>',
+    '<meta name="description" content="'+esc(desc)+'">'];
+  if((s.keywords||'').trim())L.push('<meta name="keywords" content="'+esc(s.keywords)+'">');
+  if(s.noindex)L.push('<meta name="robots" content="noindex,nofollow">');
+  if((s.siteVerification||'').trim())L.push('<meta name="google-site-verification" content="'+esc(s.siteVerification.trim())+'">');
+  L.push('<link rel="canonical" href="'+esc(url)+'">',
+    '<meta property="og:type" content="website">',
+    '<meta property="og:site_name" content="'+esc(s.title)+'">',
+    '<meta property="og:title" content="'+esc(title)+'">',
+    '<meta property="og:description" content="'+esc(desc)+'">',
+    '<meta property="og:url" content="'+esc(url)+'">',
+    '<meta property="og:image" content="'+esc(og)+'">',
+    '<meta property="og:locale" content="ja_JP">',
+    '<meta name="twitter:card" content="summary_large_image">');
+  if((s.twitter||'').trim())L.push('<meta name="twitter:site" content="@'+esc(s.twitter.trim().replace(/^@/,''))+'">');
+  if(page==='index'){
+    const same=[];
+    if(state.instagram)same.push('https://www.instagram.com/'+state.instagram+'/');
+    if((s.twitter||'').trim())same.push('https://x.com/'+s.twitter.trim().replace(/^@/,''));
+    const ld={'@context':'https://schema.org','@type':'Organization',name:(state.paper||{}).company||'IGEI Inc.',
+      alternateName:(state.paper||{}).kanji||'医療藝術融合会社',url:siteUrl(),logo:og,
+      founder:{'@type':'Person',name:'Ryoto Jinnai'},sameAs:same};
+    L.push('<script type="application/ld+json">'+JSON.stringify(ld).replace(/<\//g,'<\\/')+'<\/script>');
+  }
+  if((s.gaId||'').trim()){
+    const id=esc(s.gaId.trim());
+    L.push('<script async src="https://www.googletagmanager.com/gtag/js?id='+id+'"><\/script>',
+      '<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag("js",new Date());gtag("config","'+id+'");<\/script>');
+  }
+  L.push('<!-- seo:end -->');
+  return L.join('\n');
+}
+function sitemap(){
+  const today=new Date().toISOString().slice(0,10),u=siteUrl();
+  const urls=[u,u+'insert.html',...SECTION_KEYS.map(k=>u+'detail.html?s='+k)];
+  return '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'+
+    urls.map(x=>'  <url><loc>'+x.replace(/&/g,'&amp;')+'</loc><lastmod>'+today+'</lastmod></url>\n').join('')+'</urlset>\n';
+}
+function robots(){
+  return state.site.noindex?'User-agent: *\nDisallow: /\n':'User-agent: *\nAllow: /\nDisallow: /admin.html\nSitemap: '+siteUrl()+'sitemap.xml\n';
+}
+async function writeSeo(){
+  let n=0;
+  for(const page of ['index','insert','detail']){
+    const f=page+'.html';
+    msg('SEO を書き込み中… '+f);
+    const cur=await getText(f);
+    if(!cur)continue;
+    const re=/<!-- seo:start[^\n]*-->[\s\S]*?<!-- seo:end -->/;
+    if(!re.test(cur.text)){msg(f+' に seo マーカーが無いためスキップしました');continue}
+    const next=cur.text.replace(re,()=>seoBlock(page));
+    if(next!==cur.text){
+      await gh(f,{method:'PUT',body:JSON.stringify({message:'SEO更新: '+f,content:b64e(next),sha:cur.sha})});n++;
+    }
+  }
+  if(await putText('sitemap.xml',sitemap(),'sitemap 更新'))n++;
+  if(await putText('robots.txt',robots(),'robots 更新'))n++;
+  return n;
+}
 
 /* ---------- form ---------- */
+function field(box,[path,label,hint,ta]){
+  const l=document.createElement('label');l.textContent=label;box.appendChild(l);
+  if(hint){const h=document.createElement('p');h.className='hint';h.textContent=hint;box.appendChild(h)}
+  const inp=document.createElement(ta?'textarea':'input');if(!ta)inp.type='text';
+  inp.value=get(state,path)||'';
+  inp.oninput=()=>set(state,path,inp.value);
+  box.appendChild(inp);
+}
+function renderFields(){
+  for(const g of Object.keys(FIELDS)){
+    const box=$('f-'+g);box.innerHTML='';
+    FIELDS[g].forEach(f=>field(box,f));
+  }
+  $('noindex').checked=!!state.site.noindex;
+  $('noindex').onchange=()=>{state.site.noindex=$('noindex').checked};
+  $('ogPath').textContent=state.site.ogImage||'img/logo.jpg';
+  $('ogPreview').src=ogFile?URL.createObjectURL(ogFile):(state.site.ogImage||'img/logo.jpg')+'?t='+Date.now();
+  document.querySelectorAll('.site-link').forEach(a=>{a.href=siteUrl();a.textContent=siteUrl().replace(/^https?:\/\//,'').replace(/\/$/,'')});
+  const lb=$('f-labels');lb.innerHTML='';
+  SECTION_KEYS.forEach(k=>{
+    const L=labels()[k]||DEFAULT_LABELS[k];
+    const row=document.createElement('div');row.className='lbl';
+    row.appendChild(Object.assign(document.createElement('span'),{textContent:k}));
+    [0,1].forEach(i=>{
+      const inp=document.createElement('input');inp.type='text';inp.value=L[i]||'';inp.placeholder=DEFAULT_LABELS[k][i];
+      inp.oninput=()=>{state.labels=state.labels||JSON.parse(JSON.stringify(DEFAULT_LABELS));state.labels[k][i]=inp.value;renderSectionHeads()};
+      row.appendChild(inp);
+    });
+    lb.appendChild(row);
+  });
+}
+function renderSectionHeads(){
+  SECTION_KEYS.forEach(k=>{const h=$('h-'+k);const L=labels()[k]||DEFAULT_LABELS[k];if(h)h.textContent='【'+L[0]+'・'+L[1]+'】'});
+}
 function sec(key){
   const s=state.sections[key]=state.sections[key]||{};
   s.summary=s.summary||'';s.articles=s.articles||[];
@@ -220,12 +415,12 @@ function renderArticles(key){
   });
 }
 function renderForm(){
-  $('ig').value=state.instagram||'';
+  renderFields();
   const sb=$('sections');sb.innerHTML='';
-  SECTION_KEYS.forEach(([key,label])=>{
+  SECTION_KEYS.forEach(key=>{
     const s=sec(key);
-    sb.appendChild(Object.assign(document.createElement('h3'),{textContent:'【'+label+'】'}));
-    const l=document.createElement('label');l.textContent='概要（添付文書に数行だけ表示）';
+    sb.appendChild(Object.assign(document.createElement('h3'),{id:'h-'+key}));
+    const l=document.createElement('label');l.textContent='概要（添付文書に数行だけ表示。詳細ページの description にもなります）';
     const t=document.createElement('textarea');
     t.placeholder='添付文書のこの項目に載せる短い文。URL は自動でリンクになります。';
     t.value=s.summary;t.oninput=()=>{s.summary=t.value};
@@ -238,6 +433,7 @@ function renderForm(){
     sb.appendChild(add);
     renderArticles(key);
   });
+  renderSectionHeads();
   $('editor').hidden=false;
 }
 
@@ -254,7 +450,9 @@ async function load(){
     }
     state=parsed;
     state._sha=j.sha;
+    state.site=state.site||{};state.pages=state.pages||{};state.paper=state.paper||{};state.index=state.index||{};
     state.sections=state.sections||{};
+    ogFile=null;
     renderForm();
     msg('読み込みました。編集して「保存して公開」を押してください。');
   }catch(e){
@@ -264,10 +462,20 @@ async function load(){
 async function save(){
   $('save').disabled=$('reload').disabled=$('tokenSave').disabled=true;
   try{
-    state.instagram=$('ig').value.trim().replace(/^@/,'')||'igei_official';
+    state.instagram=(state.instagram||'').trim().replace(/^@/,'')||'igei_official';
+    state.site.title=(state.site.title||'').trim()||'IGEI Inc.';
+    state.site.description=(state.site.description||'').trim();
+    state.site.url=siteUrl();
     const now=new Date().toISOString().slice(0,19);
     let n=0;
-    for(const [key] of SECTION_KEYS){
+    if(ogFile){
+      msg('OGP画像をアップロード中…');
+      const ext=(ogFile.name.match(/\.[A-Za-z0-9]+$/)||['.jpg'])[0].toLowerCase();
+      const name='img/og-'+Date.now()+ext;
+      await gh(name,{method:'PUT',body:JSON.stringify({message:'OGP画像: '+name,content:await fileB64(ogFile)})});
+      state.site.ogImage=name;ogFile=null;
+    }
+    for(const key of SECTION_KEYS){
       for(const a of sec(key).articles){
         for(const file of (a._files||[])){
           msg('画像をアップロード中… '+file.name);
@@ -283,7 +491,7 @@ async function save(){
     }
     msg('保存中…');
     const sections={};
-    for(const [key] of SECTION_KEYS){
+    for(const key of SECTION_KEYS){
       const s=sec(key);
       sections[key]={
         summary:s.summary||'',
@@ -293,14 +501,15 @@ async function save(){
         })),
       };
     }
-    const clean={instagram:state.instagram,sections};
+    const clean={site:state.site,pages:state.pages,index:state.index,paper:state.paper,labels:state.labels||DEFAULT_LABELS,instagram:state.instagram,sections};
     const res=await gh('content.json',{method:'PUT',body:JSON.stringify({
       message:'サイト内容を更新',
       content:b64e(JSON.stringify(clean,null,2)),
       sha:state._sha,
     })});
     state._sha=res.content.sha;
-    msg('✅ 保存しました。約1分後に newnet.jp/igei に反映されます。','ok');
+    const w=await writeSeo();
+    msg('✅ 保存しました'+(w?'（SEO関連 '+w+' ファイル更新）':'')+'。約1分後に '+siteUrl()+' に反映されます。','ok');
     renderForm();
   }catch(e){
     if((e.message||'').includes('409')){
@@ -312,6 +521,11 @@ async function save(){
   $('save').disabled=$('reload').disabled=$('tokenSave').disabled=false;
 }
 
+$('ogFile').onchange=()=>{
+  const f=$('ogFile').files[0];if(!f)return;
+  if(f.size>8*1024*1024){alert('8MBを超えています');$('ogFile').value='';return}
+  ogFile=f;$('ogPreview').src=URL.createObjectURL(f);
+};
 $('tokenSave').onclick=()=>{
   const v=$('token').value.trim();
   if(!v){alert('トークンを入力してください');return}

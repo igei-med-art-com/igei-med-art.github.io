@@ -1,4 +1,91 @@
 {
+  "site": {
+    "title": "IGEI Inc.｜医療藝術融合会社",
+    "description": "IGEI = 医藝。MED〈医(i)〉+ ART〈藝(gei)〉 PROJECT FROM JAPAN. 医師・アーティストの陣内良飛による医療と藝術の融合を目指すプロジェクト。",
+    "keywords": "IGEI, 医藝, 陣内良飛, 医療, 藝術, アート, Ryoto Jinnai",
+    "url": "https://igei-med-art.com/",
+    "ogImage": "img/logo.jpg",
+    "twitter": "",
+    "shopUrl": "https://igei.base.shop",
+    "shopLabel": "=QUAL M=DICAL C=NT=R",
+    "noindex": false,
+    "gaId": "",
+    "siteVerification": ""
+  },
+  "pages": {
+    "index": {
+      "title": "IGEI Inc.｜医療藝術融合会社",
+      "description": "IGEI = 医藝。MED〈医(i)〉+ ART〈藝(gei)〉 PROJECT FROM JAPAN."
+    },
+    "insert": {
+      "title": "IGEI Inc.｜医療藝術融合会社 添付文書",
+      "description": "IGEI = 医藝。MED〈医(i)〉+ ART〈藝(gei)〉 PROJECT FROM JAPAN. 医師・アーティストの陣内良飛による医療と藝術の融合を目指すプロジェクト。"
+    },
+    "detail": {
+      "title": "IGEI Inc.｜医療藝術融合会社",
+      "description": "IGEI = 医藝。MED〈医(i)〉+ ART〈藝(gei)〉 PROJECT FROM JAPAN."
+    }
+  },
+  "index": {
+    "hint": "TAP TO OPEN",
+    "package": "◀ PACKAGE",
+    "more": "MORE ▶"
+  },
+  "paper": {
+    "established": "** Project Established by Ryoto Jinnai\n*  Since 2025",
+    "code": "IGEI-MED-ART",
+    "company": "IGEI Inc.",
+    "lede": "IGEI is a project by physician and artist Ryoto Jinnai that seeks to merge medicine and art. Through works, design, creative direction, curated exhibitions, workshops, podcasts, and other creative outputs, IGEI “prescribes” new possibilities and explores the future of healthcare beyond conventional boundaries.",
+    "kanji": "医療藝術融合会社",
+    "kana": "イゲイ",
+    "copyTitle": "【IGEI = 医藝】",
+    "copy": "MED〈医(i)〉+ ART〈藝(gei)〉 Project from Japan.\n医師・アーティストの陣内良飛による医療と藝術の融合を目指すプロジェクト。作品 / デザイン / クリエイティブディレクション / 企画展 / ワークショップ / ポッドキャスト等の成果物を処方し、既成概念に囚われない未来の医療の姿を探求します。",
+    "worksTitle": "【近況・RECENT WORKS】",
+    "igNote": "注) INSTAGRAM :",
+    "footer": "©IGEI Inc."
+  },
+  "labels": {
+    "about": [
+      "沿革",
+      "ABOUT"
+    ],
+    "exhibition": [
+      "展示",
+      "EXHIBITION"
+    ],
+    "artwork": [
+      "作品",
+      "ARTWORK"
+    ],
+    "project": [
+      "計画",
+      "PROJECT"
+    ],
+    "commission": [
+      "依頼",
+      "COMMISSION"
+    ],
+    "shop": [
+      "売店",
+      "SHOP"
+    ],
+    "podcast": [
+      "放送",
+      "PODCAST"
+    ],
+    "media": [
+      "媒体",
+      "MEDIA"
+    ],
+    "sns": [
+      "交流",
+      "SNS"
+    ],
+    "contact": [
+      "連絡",
+      "CONTACT"
+    ]
+  },
   "instagram": "igei_official",
   "sections": {
     "about": {
@@ -9,13 +96,18 @@
           "sub": "",
           "date": "",
           "text": "「IGEI (医藝)」は、2025年に陣内良飛(当時筑波大学医学群医学類6年生)によって設立されたプロジェクトです。\n\n2019年、医療と藝術の融合を生涯の目標として陣内は筑波大学医学類に入学。アートセラピーに関する学習やダンスサークル・救急医療ボランティアサークル等での精力的な活動の後、医学類2-3年生時からフリーランスのグラフィックアーティストとして活動を開始。以降ファッションデザイン、クリエイティブディレクション、グラフィックデザイン等、クリエイティブ業界内で領域横断的な活動を継続してきました。",
-          "images": ["img/about-hero.png"],
+          "images": [
+            "img/about-hero.png"
+          ],
           "link": "",
           "updated": "2026-08-30T00:00:00"
         }
       ]
     },
-    "exhibition": { "summary": "", "articles": [] },
+    "exhibition": {
+      "summary": "",
+      "articles": []
+    },
     "artwork": {
       "summary": "IGEI - Am I Living?\nsingle : https://linkco.re/S6StGA3g?select=listen\nanimation : https://www.youtube.com/watch?v=iNVgroUCwU4",
       "articles": [
@@ -24,13 +116,18 @@
           "sub": "Single + Animation",
           "date": "",
           "text": "single : https://linkco.re/S6StGA3g?select=listen\nanimation : https://www.youtube.com/watch?v=iNVgroUCwU4",
-          "images": ["img/am-i-living.jpg"],
+          "images": [
+            "img/am-i-living.jpg"
+          ],
           "link": "https://www.youtube.com/watch?v=iNVgroUCwU4",
           "updated": "2026-08-30T00:00:03"
         }
       ]
     },
-    "project": { "summary": "", "articles": [] },
+    "project": {
+      "summary": "",
+      "articles": []
+    },
     "commission": {
       "summary": "",
       "articles": [
@@ -62,7 +159,9 @@
           "sub": "¥7,000",
           "date": "",
           "text": "",
-          "images": ["img/crew-scrub.jpg"],
+          "images": [
+            "img/crew-scrub.jpg"
+          ],
           "link": "https://igei.base.shop/items/140010708",
           "updated": "2026-08-30T00:00:02"
         },
@@ -71,7 +170,9 @@
           "sub": "SOLD OUT",
           "date": "",
           "text": "",
-          "images": ["img/crew-tee.jpg"],
+          "images": [
+            "img/crew-tee.jpg"
+          ],
           "link": "https://igei.base.shop/items/139279965",
           "updated": "2026-08-30T00:00:01"
         }

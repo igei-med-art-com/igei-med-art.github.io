@@ -3,11 +3,22 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<!-- seo:start（admin.html の「SEO」設定から自動生成。手で編集しない） -->
 <title>IGEI Inc.｜医療藝術融合会社</title>
 <meta name="description" content="IGEI = 医藝。MED〈医(i)〉+ ART〈藝(gei)〉 PROJECT FROM JAPAN.">
-<meta name="theme-color" content="#ffffff">
+<meta name="keywords" content="IGEI, 医藝, 陣内良飛, 医療, 藝術, アート, Ryoto Jinnai">
+<link rel="canonical" href="https://igei-med-art.com/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="IGEI Inc.｜医療藝術融合会社">
 <meta property="og:title" content="IGEI Inc.｜医療藝術融合会社">
-<meta property="og:image" content="https://newnet.jp/igei/img/logo.jpg">
+<meta property="og:description" content="IGEI = 医藝。MED〈医(i)〉+ ART〈藝(gei)〉 PROJECT FROM JAPAN.">
+<meta property="og:url" content="https://igei-med-art.com/">
+<meta property="og:image" content="https://igei-med-art.com/img/logo.jpg">
+<meta property="og:locale" content="ja_JP">
+<meta name="twitter:card" content="summary_large_image">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Organization", "name": "IGEI Inc.", "alternateName": "医療藝術融合会社", "url": "https://igei-med-art.com/", "logo": "https://igei-med-art.com/img/logo.jpg", "founder": {"@type": "Person", "name": "Ryoto Jinnai"}, "sameAs": ["https://www.instagram.com/igei_official/"]}</script>
+<!-- seo:end -->
+<meta name="theme-color" content="#ffffff">
 <link rel="icon" href='data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="-119 -372 1420 1420"><rect x="-119" y="-372" width="1420" height="1420" fill="black"/><g fill="white"><rect x="0" y="0" width="178" height="676"/><path d="M570,0 570,126 313,339 543,528 543,475 387,338 574,165 574,676 567,676 178,341 178,314Z"/><path d="M969,0 969,126 700,338 969,550 969,676 574,357 574,319Z"/><path d="M969,165 790,314 726,314 700,338 726,362 790,362 969,483Z"/><rect x="1005" y="0" width="177" height="676"/></g></svg>'>
 <link rel="preload" as="image" href="img/box-front.png?v=3" fetchpriority="high">
 <link rel="preload" as="image" href="img/blister.jpg">
@@ -381,6 +392,14 @@
     if(isOpen()||dragging||layer.contains(e.target)||e.target.closest('a,button'))return;
     open();
   });
+
+  /* トップページの文言(admin で編集) */
+  fetch('content.json').then(function(r){return r.ok?r.json():null}).then(function(c){
+    var m=c&&c.index;if(!m)return;
+    if(m.hint)document.getElementById('hint').textContent=m.hint;
+    if(m.package)pkgbtn.textContent=m.package;
+    var mo=document.querySelector('.more');if(m.more&&mo)mo.textContent=m.more;
+  }).catch(function(){});
 
   /* ◀ PACKAGE → 最初の画面へ */
   pkgbtn.addEventListener('click',close);

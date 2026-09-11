@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>IGEI Inc.｜サイト管理</title>
+<link rel="icon" href='data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="-119 -372 1420 1420"><rect x="-119" y="-372" width="1420" height="1420" fill="black"/><g fill="white"><rect x="0" y="0" width="178" height="676"/><path d="M570,0 570,126 313,339 543,528 543,475 387,338 574,165 574,676 567,676 178,341 178,314Z"/><path d="M969,0 969,126 700,338 969,550 969,676 574,357 574,319Z"/><path d="M969,165 790,314 726,314 700,338 726,362 790,362 969,483Z"/><rect x="1005" y="0" width="177" height="676"/></g></svg>'>
+<style>
+  :root{--red:#be5158;--ink:#2a63b0}
+  *{box-sizing:border-box}
+  body{
+    margin:0;background:#dcdcda;color:#111;
+    font-family:"Helvetica Neue","Hiragino Kaku Gothic ProN","Noto Sans JP",sans-serif;
+    font-size:14px;line-height:1.8;
+  }
+  .wrap{display:flex;justify-content:center;padding:32px 12px 80px}
+  .sheet{width:min(760px,96vw);background:#fff;box-shadow:0 10px 34px rgba(0,0,0,.22);padding:32px 34px 44px}
+  @media (max-width:640px){.sheet{padding:20px 16px 32px}}
+  h1{font-size:20px;font-weight:900;margin:0 0 4px;display:flex;align-items:center;gap:12px}
+  h1 svg{height:18px;width:auto}
+  .sub{font-size:12px;color:#666;margin:0 0 24px}
+  h2{font-size:15px;font-weight:900;border-bottom:2px solid #000;padding-bottom:4px;margin:32px 0 12px}
+  h3{font-size:14px;font-weight:900;margin:28px 0 4px;color:var(--ink)}
+  label{display:block;font-weight:700;font-size:12.5px;margin:10px 0 2px}
+  .hint{font-size:12px;color:#666;margin:0 0 6px}
+  input[type=text],input[type=password],textarea{
+    width:100%;border:1.5px solid #000;padding:7px 10px;font:inherit;font-size:13.5px;background:#fff;
+  }
+  textarea{min-height:72px;resize:vertical}
+  @media (max-width:640px){
+    input[type=text],input[type=password],textarea{font-size:16px}
+  }
+  button{
+    font:inherit;font-weight:700;border:1.5px solid #000;background:#fff;
+    padding:6px 16px;cursor:pointer;font-size:13px;
+  }
+  button:hover{background:#f2f2f0}
+  button:disabled{opacity:.4;cursor:default}
+  .primary{background:var(--red);border-color:var(--red);color:#fff}
+  .primary:hover{background:#a63f46}
+  .ghost{border-style:dashed}
+  .row{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+  .art{border:1.5px solid var(--ink);border-radius:10px;padding:12px 16px 14px;margin:10px 0;position:relative}
+  .art .num{position:absolute;top:-10px;left:12px;background:#fff;padding:0 6px;font-size:11px;font-weight:700;color:var(--ink)}
+  .thumbs{display:flex;gap:8px;flex-wrap:wrap;margin:6px 0}
+  .thumb{
+    position:relative;width:110px;aspect-ratio:16/10;background:#f2f2f0;border:1px solid #bbb;overflow:hidden;
+  }
+  .thumb img{width:100%;height:100%;object-fit:cover;display:block}
+  .thumb button{
+    position:absolute;top:2px;right:2px;padding:0 6px;font-size:11px;line-height:18px;background:#fff;border-width:1px;
+  }
+  .thumb .first{position:absolute;left:0;bottom:0;background:rgba(42,99,176,.85);color:#fff;font-size:9px;padding:0 5px;letter-spacing:.1em}
+  .ops{display:flex;gap:8px;justify-content:flex-end;margin-top:8px}
+  .ops button{font-size:11px;padding:3px 10px}
+  .status{
+    margin-top:20px;padding:10px 14px;border:1.5px solid #000;font-size:13px;
+    min-height:44px;white-space:pre-line;background:#fafaf8;
+  }
+  .status.ok{border-color:#0a7a2f;color:#0a7a2f}
+  .status.err{border-color:var(--red);color:var(--red)}
+  details{border:1.5px solid #000;padding:10px 14px;margin:12px 0;font-size:13px}
+  summary{font-weight:700;cursor:pointer}
+  details ol{margin:8px 0 0;padding-left:20px}
+  a{color:inherit}
+  .savebar{
+    position:sticky;bottom:0;background:#fff;border-top:2px solid #000;
+    margin:28px -34px -44px;padding:14px 34px;display:flex;gap:12px;align-items:center;z-index:2;
+  }
+  @media (max-width:640px){.savebar{margin:28px -16px -32px;padding:12px 16px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<main class="sheet">
+
+  <h1>
+    <svg viewBox="0 0 1182 676" aria-hidden="true"><g fill="#000"><rect x="0" y="0" width="178" height="676"/><path d="M570,0 570,126 313,339 543,528 543,475 387,338 574,165 574,676 567,676 178,341 178,314Z"/><path d="M969,0 969,126 700,338 969,550 969,676 574,357 574,319Z"/><path d="M969,165 790,314 726,314 700,338 726,362 790,362 969,483Z"/><rect x="1005" y="0" width="177" height="676"/></g></svg>
+    サイト管理
+  </h1>
+  <p class="sub">保存すると <a href="https://newnet.jp/igei/insert.html" target="_blank" rel="noopener">newnet.jp/igei</a> に約1分で反映されます。このページは公開サイトからリンクされていません（URL直打ちで開きます）。</p>
+
+  <h2>1. アクセストークン</h2>
+  <details>
+    <summary>トークンの作り方（最初の1回だけ）</summary>
+    <ol>
+      <li>GitHubにログインし <a href="https://github.com/settings/personal-access-tokens/new" target="_blank" rel="noopener">Fine-grained token の作成ページ</a> を開く</li>
+      <li>Token name: 任意（例 igei-admin）／ Expiration: 1年など</li>
+      <li>Repository access →「Only select repositories」→ <b>newnetjp/igei</b> を選択</li>
+      <li>Permissions → Repository permissions → <b>Contents: Read and write</b></li>
+      <li>「Generate token」→ 表示されたトークン（github_pat_…）を下に貼り付けて保存</li>
+    </ol>
+  </details>
+  <div class="row">
+    <input type="password" id="token" placeholder="github_pat_…" style="flex:1;min-width:200px">
+    <button id="tokenSave">トークンを保存</button>
+  </div>
+
+  <div id="editor" hidden>
+
+    <h2>2. 基本設定</h2>
+    <label for="ig">INSTAGRAM ユーザー名（@は不要）</label>
+    <input type="text" id="ig" placeholder="igei_official">
+
+    <h2>3. 各項目</h2>
+    <p class="hint">「概要」は添付文書に数行だけ出ます（空欄なら COMING SOON）。「記事」は MORE を押した先の詳細ページに上から順に並びます。
+      全項目の記事のうち保存が新しい3件が添付文書の【近況・RECENT WORKS】に、記事の1枚目の画像をサムネイルにして出ます。</p>
+    <div id="sections"></div>
+
+    <div class="savebar">
+      <button class="primary" id="save">保存して公開</button>
+      <button id="reload">読み直す</button>
+    </div>
+  </div>
+
+  <div class="status" id="status">トークンを設定すると編集フォームが表示されます。</div>
+
+</main>
+</div>
+
+<script>
+const REPO='newnetjp/igei';
+const API='https://api.github.com/repos/'+REPO+'/contents/';
+const SECTION_KEYS=[
+  ['about','沿革・ABOUT'],
+  ['exhibition','展示・EXHIBITION'],
+  ['artwork','作品・ARTWORK'],
+  ['project','計画・PROJECT'],
+  ['commission','依頼・COMMISSION'],
+  ['shop','売店・SHOP'],
+  ['podcast','放送・PODCAST'],
+  ['media','媒体・MEDIA'],
+  ['sns','交流・SNS'],
+  ['contact','連絡・CONTACT'],
+];
+let token=localStorage.getItem('igei_token')||'';
+let state={instagram:'igei_official',sections:{}};
+
+const $=id=>document.getElementById(id);
+const b64e=s=>btoa(unescape(encodeURIComponent(s)));
+const b64d=s=>decodeURIComponent(escape(atob(s.replace(/\n/g,''))));
+const fileB64=f=>new Promise((res,rej)=>{
+  const r=new FileReader();
+  r.onload=()=>res(r.result.split(',')[1]);
+  r.onerror=rej;r.readAsDataURL(f);
+});
+function msg(t,cls){const s=$('status');s.textContent=t;s.className='status'+(cls?' '+cls:'')}
+
+async function gh(path,opts={}){
+  const r=await fetch(API+path+(opts.method?'':'?t='+Date.now()),{
+    ...opts,
+    headers:{'Authorization':'Bearer '+token,'Accept':'application/vnd.github+json'},
+  });
+  if(!r.ok){
+    let d='';try{d=(await r.json()).message||''}catch(e){}
+    throw new Error(path+' → HTTP '+r.status+(d?'（'+d+'）':''));
+  }
+  return r.json();
+}
+
+/* ---------- form ---------- */
+function sec(key){
+  const s=state.sections[key]=state.sections[key]||{};
+  s.summary=s.summary||'';s.articles=s.articles||[];
+  return s;
+}
+function renderArticles(key){
+  const s=sec(key),box=$('arts-'+key);box.innerHTML='';
+  s.articles.forEach((a,i)=>{
+    a.images=a.images||[];a._files=a._files||[];
+    const d=document.createElement('div');d.className='art';
+    d.appendChild(Object.assign(document.createElement('span'),{className:'num',textContent:'記事 '+(i+1)}));
+    const mk=(lbl,k,ph,ta)=>{
+      const l=document.createElement('label');l.textContent=lbl;
+      const inp=document.createElement(ta?'textarea':'input');
+      if(!ta)inp.type='text';
+      inp.value=a[k]||'';inp.placeholder=ph||'';
+      inp.oninput=()=>{a[k]=inp.value;a._dirty=true};
+      d.appendChild(l);d.appendChild(inp);
+    };
+    mk('タイトル','title','例）University of Tsukuba Night 2026 / 筑波大学');
+    mk('種別（▶ の行）','sub','例）Visual Design');
+    mk('年など','date','例）2026');
+    mk('本文','text','本文。空行で段落分け。URL は自動でリンクになります。',true);
+    mk('関連記事 URL（任意）','link','https://…');
+
+    const l=document.createElement('label');l.textContent='画像（1枚目が近況のサムネイルになります）';
+    d.appendChild(l);
+    const th=document.createElement('div');th.className='thumbs';
+    const addThumb=(src,onDel,first)=>{
+      const t=document.createElement('div');t.className='thumb';
+      const im=document.createElement('img');im.src=src;t.appendChild(im);
+      if(first)t.appendChild(Object.assign(document.createElement('span'),{className:'first',textContent:'TOP'}));
+      const b=document.createElement('button');b.textContent='×';b.title='この画像を外す';b.onclick=onDel;t.appendChild(b);
+      th.appendChild(t);
+    };
+    a.images.forEach((src,j)=>addThumb(src,()=>{a.images.splice(j,1);a._dirty=true;renderArticles(key)},j===0));
+    a._files.forEach((f,j)=>addThumb(f._preview,()=>{a._files.splice(j,1);renderArticles(key)},!a.images.length&&j===0));
+    d.appendChild(th);
+    const f=document.createElement('input');f.type='file';f.accept='image/*';f.multiple=true;
+    f.onchange=()=>{
+      for(const file of f.files){
+        if(file.size>8*1024*1024){alert(file.name+' は8MBを超えています');continue}
+        file._preview=URL.createObjectURL(file);a._files.push(file);a._dirty=true;
+      }
+      renderArticles(key);
+    };
+    d.appendChild(f);
+
+    const ops=document.createElement('div');ops.className='ops';
+    const btn=(t,fn,dis)=>{const b=document.createElement('button');b.textContent=t;b.disabled=!!dis;b.onclick=fn;ops.appendChild(b)};
+    btn('↑ 上へ',()=>{[s.articles[i-1],s.articles[i]]=[s.articles[i],s.articles[i-1]];renderArticles(key)},i===0);
+    btn('↓ 下へ',()=>{[s.articles[i+1],s.articles[i]]=[s.articles[i],s.articles[i+1]];renderArticles(key)},i===s.articles.length-1);
+    btn('削除',()=>{if(confirm('この記事を削除しますか？')){s.articles.splice(i,1);renderArticles(key)}});
+    d.appendChild(ops);
+    box.appendChild(d);
+  });
+}
+function renderForm(){
+  $('ig').value=state.instagram||'';
+  const sb=$('sections');sb.innerHTML='';
+  SECTION_KEYS.forEach(([key,label])=>{
+    const s=sec(key);
+    sb.appendChild(Object.assign(document.createElement('h3'),{textContent:'【'+label+'】'}));
+    const l=document.createElement('label');l.textContent='概要（添付文書に数行だけ表示）';
+    const t=document.createElement('textarea');
+    t.placeholder='添付文書のこの項目に載せる短い文。URL は自動でリンクになります。';
+    t.value=s.summary;t.oninput=()=>{s.summary=t.value};
+    sb.appendChild(l);sb.appendChild(t);
+    const l2=document.createElement('label');l2.textContent='記事（MORE の先の詳細ページ）';
+    sb.appendChild(l2);
+    const box=document.createElement('div');box.id='arts-'+key;sb.appendChild(box);
+    const add=document.createElement('button');add.className='ghost';add.textContent='＋ 記事を追加';
+    add.onclick=()=>{s.articles.unshift({title:'',sub:'',date:'',text:'',images:[],link:'',_dirty:true,_files:[]});renderArticles(key)};
+    sb.appendChild(add);
+    renderArticles(key);
+  });
+  $('editor').hidden=false;
+}
+
+/* ---------- load / save ---------- */
+async function load(){
+  msg('読み込み中…');
+  try{
+    const j=await gh('content.json');
+    let parsed;
+    try{parsed=JSON.parse(b64d(j.content))}
+    catch(pe){
+      msg('content.json の形式が壊れています。GitHub上で直接修正してください。\n'+pe.message,'err');
+      return;
+    }
+    state=parsed;
+    state._sha=j.sha;
+    state.sections=state.sections||{};
+    renderForm();
+    msg('読み込みました。編集して「保存して公開」を押してください。');
+  }catch(e){
+    msg('読み込みに失敗しました。トークンの権限（newnetjp/igei の Contents: Read and write）を確認してください。\n'+e.message,'err');
+  }
+}
+async function save(){
+  $('save').disabled=$('reload').disabled=$('tokenSave').disabled=true;
+  try{
+    state.instagram=$('ig').value.trim().replace(/^@/,'')||'igei_official';
+    const now=new Date().toISOString().slice(0,19);
+    let n=0;
+    for(const [key] of SECTION_KEYS){
+      for(const a of sec(key).articles){
+        for(const file of (a._files||[])){
+          msg('画像をアップロード中… '+file.name);
+          const b64=await fileB64(file);
+          const ext=(file.name.match(/\.[A-Za-z0-9]+$/)||['.jpg'])[0].toLowerCase();
+          const name='img/'+Date.now()+'-'+(n++)+ext;
+          await gh(name,{method:'PUT',body:JSON.stringify({message:'画像追加: '+name,content:b64})});
+          a.images.push(name);
+        }
+        a._files=[];
+        if(a._dirty||!a.updated){a.updated=now;delete a._dirty}
+      }
+    }
+    msg('保存中…');
+    const sections={};
+    for(const [key] of SECTION_KEYS){
+      const s=sec(key);
+      sections[key]={
+        summary:s.summary||'',
+        articles:s.articles.map(a=>({
+          title:a.title||'',sub:a.sub||'',date:a.date||'',text:a.text||'',
+          images:a.images||[],link:a.link||'',updated:a.updated||now,
+        })),
+      };
+    }
+    const clean={instagram:state.instagram,sections};
+    const res=await gh('content.json',{method:'PUT',body:JSON.stringify({
+      message:'サイト内容を更新',
+      content:b64e(JSON.stringify(clean,null,2)),
+      sha:state._sha,
+    })});
+    state._sha=res.content.sha;
+    msg('✅ 保存しました。約1分後に newnet.jp/igei に反映されます。','ok');
+    renderForm();
+  }catch(e){
+    if((e.message||'').includes('409')){
+      msg('内容が別の場所で更新されています。「読み直す」で最新を取得してから保存し直してください。','err');
+    }else{
+      msg('保存に失敗しました。\n'+e.message,'err');
+    }
+  }
+  $('save').disabled=$('reload').disabled=$('tokenSave').disabled=false;
+}
+
+$('tokenSave').onclick=()=>{
+  const v=$('token').value.trim();
+  if(!v){alert('トークンを入力してください');return}
+  token=v;localStorage.setItem('igei_token',v);
+  load();
+};
+$('save').onclick=save;
+$('reload').onclick=()=>{if(confirm('保存していない編集は破棄されます。読み直しますか？'))load()};
+
+if(token){$('token').value=token;load()}
+</script>
+</body>
+</html>

@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>IGEI Inc.｜医療藝術融合会社 添付文書</title>
+<meta name="description" content="IGEI = 医藝。MED〈医(i)〉+ ART〈藝(gei)〉 PROJECT FROM JAPAN. 医師・アーティストの陣内良飛による医療と藝術の融合を目指すプロジェクト。">
+<link rel="icon" href='data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="-119 -372 1420 1420"><rect x="-119" y="-372" width="1420" height="1420" fill="black"/><g fill="white"><rect x="0" y="0" width="178" height="676"/><path d="M570,0 570,126 313,339 543,528 543,475 387,338 574,165 574,676 567,676 178,341 178,314Z"/><path d="M969,0 969,126 700,338 969,550 969,676 574,357 574,319Z"/><path d="M969,165 790,314 726,314 700,338 726,362 790,362 969,483Z"/><rect x="1005" y="0" width="177" height="676"/></g></svg>'>
+<meta name="theme-color" content="#000000">
+<meta property="og:title" content="IGEI Inc.｜医療藝術融合会社">
+<meta property="og:image" content="https://newnet.jp/igei/img/logo.jpg">
+<style>
+  :root{
+    --red:#be5158;          /* 指示書 R190 G81 B88 */
+    --ink:#2a63b0;          /* 指示書 R42 G99 B176。添付文書は全面ブルー刷り */
+    --bar:#89bbde;          /* 画面例の帯: 塗り #89bbde / 縁 #518ebd */
+    --tbh:46px;             /* トップバー実高 */
+    --tb:calc(var(--tbh) + env(safe-area-inset-top,0px));
+    --sheet:880px;
+    --en:"Helvetica Neue",Helvetica,Arial,sans-serif;
+    --jp:"Hiragino Kaku Gothic ProN","Hiragino Sans","Noto Sans JP",sans-serif;
+    --serif:"Times New Roman","Hiragino Mincho ProN","Noto Serif JP",serif;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    margin:0;overflow-x:clip;background:#dcdcda;color:var(--ink);
+    padding-top:var(--tb);
+    font-family:var(--en),var(--jp);
+    font-size:13.5px;line-height:1.9;
+    -webkit-text-size-adjust:100%;
+  }
+  a{color:inherit}
+
+  /* ───────── 固定トップバー（常時表示）: 英語名 → 添付文書内の各項目へ ───────── */
+  .topbar{
+    position:fixed;top:0;left:0;right:0;z-index:20;
+    height:var(--tb);padding:env(safe-area-inset-top,0px) 10px 0;
+    background:#000;display:flex;align-items:center;gap:18px;
+  }
+  .tb-home{flex:none;display:flex;align-items:center;padding:4px 2px}
+  /* ロゴは支給データそのまま（アルファPNGをマスクにして色だけ付ける） */
+  .logo{display:block;aspect-ratio:1182/676;background:currentColor;
+    -webkit-mask:url(img/logo-mask.png) center/contain no-repeat;mask:url(img/logo-mask.png) center/contain no-repeat}
+  .tb-home .logo{height:20px;color:#fff}
+  .tb-links{display:flex;gap:26px;overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+  .tb-links::-webkit-scrollbar{display:none}
+  .tb-links a{
+    color:#fff;font-family:var(--en);font-weight:700;
+    font-size:13px;letter-spacing:.06em;text-decoration:none;white-space:nowrap;
+    padding:12px 0;-webkit-tap-highlight-color:transparent;
+  }
+  .tb-links a:hover,.tb-links a:focus-visible{color:#bfd8ef}
+
+  /* ───────── =MC 吊り下げ案内板（添付文書モードのみ常時表示）→ base ───────── */
+  .sign{
+    position:fixed;top:var(--tb);right:12px;z-index:21;
+    width:clamp(96px,28vw,150px);line-height:0;
+    filter:drop-shadow(0 6px 10px rgba(0,0,0,.25));
+    transform-origin:50% 0;transition:transform .25s;
+  }
+  .sign img{width:100%;height:auto;display:block}
+  @media (hover:hover){.sign:hover{transform:rotate(-1.5deg)}}
+  @media (min-width:1240px){
+    .sign{width:180px;right:calc((100vw - var(--sheet)) / 4 - 90px)}
+  }
+
+  /* ───────── 添付文書 sheet ───────── */
+  .wrap{display:flex;justify-content:center;padding:14px 12px 60px}
+  .sheet{
+    width:min(var(--sheet),100%);background:#fff;
+    box-shadow:0 10px 34px rgba(0,0,0,.22);
+    padding:40px 44px 44px;
+  }
+  @media (min-width:1600px){
+    :root{--sheet:1040px}
+    .wrap{padding:24px 12px 80px}
+    .sheet{padding:52px 56px 56px}
+  }
+  @media (max-width:640px){
+    .wrap{padding:0 0 40px}
+    .sheet{padding:22px 16px 32px;box-shadow:none}
+  }
+
+  /* 上部の英/日本語は Times New Roman（指示書） */
+  .meta{
+    display:grid;grid-template-columns:1fr auto 1fr;align-items:start;gap:12px;
+    font-family:var(--serif);line-height:1.5;
+    font-size:clamp(8px,1.35vw,11px);
+  }
+  /* バーコード下の文字は一般的なバーコード数字風の等幅（指示書 9/9: 例 Menlo） */
+  .code{justify-self:center;text-align:center;font-family:Menlo,"SF Mono",Consolas,"DejaVu Sans Mono",monospace;font-size:clamp(7px,1.15vw,10px);letter-spacing:.06em;line-height:1.2}
+  .barcode{width:clamp(70px,11vw,120px);display:block;margin:0 auto 2px}
+
+  /* ヘッダーは実物どおり小さな級数。3段組は幅を問わず崩さず、級数だけを紙幅に追従させる */
+  .headgrid{
+    display:grid;grid-template-columns:1.05fr 1.3fr 1fr;
+    gap:clamp(6px,1.6vw,16px);align-items:start;margin-top:clamp(18px,3vw,30px);
+  }
+  .co{
+    font-family:var(--en);font-weight:900;letter-spacing:-.03em;
+    font-size:clamp(13px,3.4vw,28px);line-height:1.2;margin:0 0 clamp(6px,1.4vw,14px);
+  }
+  .lede{
+    font-family:var(--serif);margin:0;
+    font-size:clamp(7.5px,1.35vw,12px);line-height:1.55;
+  }
+  .brand{display:flex;flex-direction:column;align-items:center;gap:clamp(4px,.9vw,8px)}
+  .brand .kanji{
+    font-family:var(--jp);font-weight:700;font-size:clamp(10px,2.4vw,21px);line-height:1.3;
+    letter-spacing:clamp(.18em,.5vw,.4em);text-indent:clamp(.18em,.5vw,.4em);white-space:nowrap;
+  }
+  .brand .kana{                    /* 斜体にしない（指示書 9/9） */
+    font-family:var(--serif);font-weight:500;font-size:clamp(9px,1.6vw,15px);line-height:1.2;
+    letter-spacing:clamp(.4em,.8vw,.7em);text-indent:clamp(.4em,.8vw,.7em);margin-top:clamp(2px,.8vw,8px);
+  }
+  .brand .mark{width:100%}
+
+  /* 右上: 二字熟語の表（添付文書内の各項目へ）。画面例どおり10項目のみ（近況は入れない）。
+     看板の下に来るよう、段の下端（ロゴ・前書きの下端）に揃える */
+  .navcol{display:flex;flex-direction:column;align-items:flex-end;gap:clamp(6px,1.4vw,14px);align-self:end}
+  .navtbl{border-collapse:collapse;width:100%;font-family:var(--serif);font-size:clamp(8.5px,1.45vw,12.5px)}
+  .navtbl td{border:1px solid var(--ink);padding:1px clamp(2px,.9vw,10px);text-align:center;min-width:0}
+  .navtbl a{text-decoration:none;letter-spacing:.1em;white-space:nowrap}
+  .navtbl a:hover{text-decoration:underline}
+  .ig-note{font-family:var(--serif);font-size:clamp(8px,1.35vw,12px);white-space:nowrap}
+  .ig-note a{text-decoration:underline}
+
+  /* PC では前書きの段の下に隙間が出るので、級数と行間を上げてロゴ下端まで文章を伸ばす（指示書 9/9） */
+  @media (min-width:920px){.lede{font-size:13.5px;line-height:1.7}}
+  @media (min-width:1600px){.lede{font-size:16px}}
+
+  /* 電話幅では前書きの段だけが長く伸びるので、そこだけ配分と行間を詰める */
+  @media (max-width:520px){
+    .headgrid{grid-template-columns:1.2fr 1.25fr 1fr}
+    .lede{line-height:1.45}
+  }
+
+  .graybar{height:14px;background:var(--bar);border:1px solid #518ebd;margin:26px 0 24px}
+
+  .redbox{border:2.5px solid var(--red);padding:14px 18px;margin:0 0 24px}
+  .redbox.copy{color:var(--red);font-weight:700;font-size:14px;line-height:2.1;font-family:var(--en),var(--jp)}
+  .redbox.copy .t{font-size:15px}
+  .works-title{font-family:var(--en),var(--jp);font-weight:900;font-size:15px;margin:0 0 10px;letter-spacing:-.01em}
+  /* 近況サムネは縦長・角丸・細枠、題名は下半分に大きめ（指示書 9/9） */
+  .works-slots{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+  @media (max-width:640px){.works-slots{gap:6px}}
+  .slot{
+    aspect-ratio:4/5;background:#f2f2f0;border:1.5px dashed #bbb;border-radius:14px;
+    display:flex;align-items:center;justify-content:center;
+    color:#b5b5b2;font-family:var(--en);
+    font-size:10px;letter-spacing:.3em;text-indent:.3em;
+  }
+  .slot.filled{position:relative;border:1.5px solid #5b8fd0;padding:0;background:#111;overflow:hidden;text-decoration:none}
+  .slot.filled img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+  .slot.filled .cap{
+    position:absolute;left:0;right:0;bottom:0;z-index:1;
+    background:rgba(0,0,0,.55);color:#fff;
+    font-size:clamp(10px,2.6vw,17px);line-height:1.55;font-weight:500;
+    padding:1.5em .6em .8em;letter-spacing:.02em;text-indent:0;font-family:var(--en),var(--jp);
+    min-height:48%;box-sizing:border-box;
+  }
+  .slot.filled .cap>span{display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+  .slot.filled.noimg{background:#f2f2f0;color:var(--ink);letter-spacing:0;text-indent:0;padding:10px;text-align:center;font-family:var(--en),var(--jp);font-weight:700;font-size:12px}
+  .slot.filled.noimg .cap{position:static;background:none;color:inherit;font-size:12px;padding:0}
+
+  /* 各項目: 【二字熟語・英語】＋ 概要数行 ＋ MORE（詳細ページ） */
+  section{margin-top:34px;scroll-margin-top:calc(var(--tb) + 12px)}
+  h2{
+    font-family:var(--en),var(--jp);
+    font-weight:900;font-size:clamp(18px,3.4vw,23px);letter-spacing:-.02em;
+    margin:0 0 10px;
+  }
+  .tba,.sec-text{
+    margin:0;font-size:13px;line-height:1.9;white-space:pre-line;font-family:var(--en),var(--jp);
+    display:-webkit-box;-webkit-line-clamp:5;-webkit-box-orient:vertical;overflow:hidden;
+  }
+  .tba{color:#7f9ec0}
+  .sec-text a{word-break:break-all}
+  .more{text-align:center;margin:12px 0 0}
+  .more a{
+    color:var(--red);font-family:var(--en);font-weight:700;
+    font-size:13px;letter-spacing:.1em;text-decoration:underline;text-underline-offset:3px;
+    -webkit-tap-highlight-color:transparent;transition:opacity .2s;
+  }
+  @media (hover:hover){.more a:hover{opacity:.6}}
+
+  footer{
+    margin-top:44px;text-align:center;
+    font-family:var(--en);font-weight:700;font-size:13px;letter-spacing:.02em;color:#111;
+  }
+
+  .rv{opacity:0;transform:translateY(16px);
+    transition:opacity .7s cubic-bezier(.16,1,.3,1),transform .7s cubic-bezier(.16,1,.3,1)}
+  .rv.on{opacity:1;transform:none}
+  section:target h2{animation:secflash 1.4s ease-out}
+  @keyframes secflash{from{color:var(--red)}}
+  @media (prefers-reduced-motion: reduce){
+    html{scroll-behavior:auto}
+    .rv{opacity:1;transform:none;transition:none}
+    .sign,.more a{transition:none}
+  }
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <a class="tb-home" href="index.html" aria-label="パッケージ（トップ）へ戻る">
+    <span class="logo" aria-hidden="true"></span>
+  </a>
+  <nav class="tb-links" aria-label="セクション">
+    <a href="#about">ABOUT</a><a href="#exhibition">EXHIBITION</a><a href="#artwork">ARTWORK</a><a href="#project">PROJECT</a><a href="#commission">COMMISSION</a><a href="#shop">SHOP</a><a href="#podcast">PODCAST</a><a href="#media">MEDIA</a><a href="#sns">SNS</a><a href="#contact">CONTACT</a>
+  </nav>
+</header>
+
+<a class="sign" href="https://igei.base.shop" target="_blank" rel="noopener" aria-label="=QUAL M=DICAL C=NT=R オンラインショップ">
+  <img src="img/mc-sign.png" alt="=QUAL M=DICAL C=NT=R →" width="757" height="356">
+</a>
+
+<div class="wrap">
+<main class="sheet">
+
+  <div class="meta">
+    <div>** Project Established by Ryoto Jinnai<br>*&nbsp; Since 2025</div>
+    <div class="code">
+      <svg class="barcode" viewBox="0 0 120 34" aria-hidden="true">
+        <g fill="currentColor">
+          <rect x="0" width="3" height="34"/><rect x="5" width="1" height="34"/><rect x="8" width="2" height="34"/>
+          <rect x="12" width="1" height="34"/><rect x="15" width="4" height="34"/><rect x="21" width="2" height="34"/>
+          <rect x="25" width="1" height="34"/><rect x="28" width="3" height="34"/><rect x="33" width="1" height="34"/>
+          <rect x="36" width="2" height="34"/><rect x="40" width="2" height="34"/><rect x="44" width="1" height="34"/>
+          <rect x="47" width="3" height="34"/><rect x="52" width="1" height="34"/><rect x="55" width="1" height="34"/>
+          <rect x="58" width="4" height="34"/><rect x="64" width="1" height="34"/><rect x="67" width="2" height="34"/>
+          <rect x="71" width="3" height="34"/><rect x="76" width="1" height="34"/><rect x="79" width="2" height="34"/>
+          <rect x="83" width="1" height="34"/><rect x="86" width="3" height="34"/><rect x="91" width="2" height="34"/>
+          <rect x="95" width="1" height="34"/><rect x="98" width="4" height="34"/><rect x="104" width="1" height="34"/>
+          <rect x="107" width="2" height="34"/><rect x="111" width="1" height="34"/><rect x="114" width="3" height="34"/>
+        </g>
+      </svg>
+      IGEI-MED-ART
+    </div>
+    <div></div>
+  </div>
+
+  <div class="headgrid">
+    <div>
+      <p class="co">IGEI Inc.</p>
+      <p class="lede">IGEI is a project by physician and artist Ryoto Jinnai that seeks to merge medicine and art. Through works, design, creative direction, curated exhibitions, workshops, podcasts, and other creative outputs, IGEI “prescribes” new possibilities and explores the future of healthcare beyond conventional boundaries.</p>
+    </div>
+
+    <div class="brand">
+      <span class="kanji">医療藝術融合会社</span>
+      <span class="kana">イゲイ</span>
+      <span class="mark logo" role="img" aria-label="IGEI"></span>
+    </div>
+
+    <div class="navcol">
+      <table class="navtbl">
+        <tr><td><a href="#about">沿革</a></td><td><a href="#exhibition">展示</a></td></tr>
+        <tr><td><a href="#artwork">作品</a></td><td><a href="#project">計画</a></td></tr>
+        <tr><td><a href="#commission">依頼</a></td><td><a href="#shop">売店</a></td></tr>
+        <tr><td><a href="#podcast">放送</a></td><td><a href="#media">媒体</a></td></tr>
+        <tr><td><a href="#sns">交流</a></td><td><a href="#contact">連絡</a></td></tr>
+      </table>
+      <span class="ig-note">注) INSTAGRAM : <a class="ig-link" href="https://www.instagram.com/igei_official/" target="_blank" rel="noopener">@igei_official</a></span>
+    </div>
+  </div>
+
+  <div class="graybar"></div>
+
+  <div class="redbox copy rv">
+    <span class="t">【IGEI = 医藝】</span><br>
+    MED〈医(i)〉+ ART〈藝(gei)〉 Project from Japan.<br>
+    医師・アーティストの陣内良飛による医療と藝術の融合を目指すプロジェクト。
+    作品 / デザイン / クリエイティブディレクション / 企画展 / ワークショップ / ポッドキャスト
+    等の成果物を処方し、既成概念に囚われない未来の医療の姿を探求します。
+  </div>
+
+  <div class="redbox rv" id="works">
+    <p class="works-title">【近況・RECENT WORKS】</p>
+    <div class="works-slots" id="works-slots">
+      <div class="slot">COMING SOON</div>
+      <div class="slot">COMING SOON</div>
+      <div class="slot">COMING SOON</div>
+    </div>
+  </div>
+
+  <section class="rv" id="about"><h2>【沿革・ABOUT】</h2><p class="tba" data-key="about">COMING SOON</p><p class="more"><a href="detail.html?s=about">MORE</a></p></section>
+  <section class="rv" id="exhibition"><h2>【展示・EXHIBITION】</h2><p class="tba" data-key="exhibition">COMING SOON</p><p class="more"><a href="detail.html?s=exhibition">MORE</a></p></section>
+  <section class="rv" id="artwork"><h2>【作品・ARTWORK】</h2><p class="tba" data-key="artwork">COMING SOON</p><p class="more"><a href="detail.html?s=artwork">MORE</a></p></section>
+  <section class="rv" id="project"><h2>【計画・PROJECT】</h2><p class="tba" data-key="project">COMING SOON</p><p class="more"><a href="detail.html?s=project">MORE</a></p></section>
+  <section class="rv" id="commission"><h2>【依頼・COMMISSION】</h2><p class="tba" data-key="commission">COMING SOON</p><p class="more"><a href="detail.html?s=commission">MORE</a></p></section>
+  <section class="rv" id="shop"><h2>【売店・SHOP】</h2><p class="tba" data-key="shop">COMING SOON</p><p class="more"><a href="detail.html?s=shop">MORE</a></p></section>
+  <section class="rv" id="podcast"><h2>【放送・PODCAST】</h2><p class="tba" data-key="podcast">COMING SOON</p><p class="more"><a href="detail.html?s=podcast">MORE</a></p></section>
+  <section class="rv" id="media"><h2>【媒体・MEDIA】</h2><p class="tba" data-key="media">COMING SOON</p><p class="more"><a href="detail.html?s=media">MORE</a></p></section>
+  <section class="rv" id="sns"><h2>【交流・SNS】</h2><p class="tba" data-key="sns">COMING SOON</p><p class="more"><a href="detail.html?s=sns">MORE</a></p></section>
+  <section class="rv" id="contact"><h2>【連絡・CONTACT】</h2><p class="tba" data-key="contact">COMING SOON</p><p class="more"><a href="detail.html?s=contact">MORE</a></p></section>
+
+  <footer>&copy;IGEI Inc.</footer>
+
+</main>
+</div>
+
+<script>
+(function(){
+  if(!window.IntersectionObserver){
+    document.querySelectorAll('.rv').forEach(function(el){el.classList.add('on')});
+  }else{
+    var io=new IntersectionObserver(function(es){
+      es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('on');io.unobserve(e.target)}});
+    },{rootMargin:'0px 0px -8% 0px'});
+    document.querySelectorAll('.rv').forEach(function(el){io.observe(el)});
+  }
+
+  /* 錠剤シート / トップバー / 二字熟語表からの #anchor 着地。.rv の translateY と
+     content.json 反映で位置がずれるので、対象を確定表示にしてから合わせ直す */
+  function gotoHash(){
+    if(!location.hash)return;
+    var t=document.getElementById(location.hash.slice(1));
+    if(!t)return;
+    t.classList.add('on');
+    t.scrollIntoView({behavior:'auto'});
+  }
+  gotoHash();
+  addEventListener('hashchange',gotoHash);
+
+  function linkify(t){
+    var frag=document.createDocumentFragment();
+    t.split(/(https?:\/\/[^\s、。）」]+)/g).forEach(function(part){
+      if(/^https?:\/\//.test(part)){
+        var a=document.createElement('a');
+        a.href=part;a.target='_blank';a.rel='noopener';
+        a.textContent=part.replace(/^https?:\/\/(www\.)?/,'').replace(/\/$/,'');
+        frag.appendChild(a);
+      }else frag.appendChild(document.createTextNode(part));
+    });
+    return frag;
+  }
+
+  /* content.json: 管理画面(admin.html)で編集した内容を反映 */
+  fetch('content.json',{cache:'no-store'})
+    .then(function(r){return r.ok?r.json():null})
+    .then(function(c){
+      if(!c)return;
+      if(c.instagram){
+        document.querySelectorAll('.ig-link').forEach(function(a){
+          a.href='https://www.instagram.com/'+c.instagram+'/';
+          a.textContent='@'+c.instagram;
+        });
+      }
+      var secs=c.sections||{};
+      document.querySelectorAll('[data-key]').forEach(function(p){
+        var s=secs[p.dataset.key]||{},t=(s.summary||'').trim();
+        if(!t)return;
+        var n=document.createElement('p');
+        n.className='sec-text';n.appendChild(linkify(t));
+        p.replaceWith(n);
+      });
+      gotoHash();
+
+      /* 近況: 全項目の記事のうち更新が新しい3件。サムネイルは記事の先頭画像 */
+      var all=[];
+      Object.keys(secs).forEach(function(k){
+        (secs[k].articles||[]).forEach(function(a,i){all.push({k:k,i:i,a:a})});
+      });
+      all.sort(function(x,y){return String(y.a.updated||'').localeCompare(String(x.a.updated||''))});
+      var top=all.slice(0,3);
+      if(!top.length)return;
+      var box=document.getElementById('works-slots');
+      box.innerHTML='';
+      top.forEach(function(it){
+        var a=it.a,el=document.createElement('a');
+        el.href='detail.html?s='+it.k+'#a'+it.i;
+        var img=(a.images||[])[0];
+        el.className='slot filled'+(img?'':' noimg');
+        if(img){
+          var im=document.createElement('img');
+          im.src=img;im.alt=a.title||'';im.loading='lazy';im.decoding='async';
+          el.appendChild(im);
+        }
+        var cap=document.createElement('span'),inner=document.createElement('span');cap.className='cap';
+        inner.appendChild(document.createTextNode((a.title||'').trim()||'COMING SOON'));
+        if((a.sub||'').trim()){inner.appendChild(document.createElement('br'));inner.appendChild(document.createTextNode(a.sub.trim()))}
+        cap.appendChild(inner);
+        el.appendChild(cap);
+        box.appendChild(el);
+      });
+    })
+    .catch(function(){});
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>IGEI Inc.｜医療藝術融合会社</title>
+<meta name="description" content="IGEI = 医藝。MED〈医(i)〉+ ART〈藝(gei)〉 PROJECT FROM JAPAN.">
+<meta name="theme-color" content="#ffffff">
+<meta property="og:title" content="IGEI Inc.｜医療藝術融合会社">
+<meta property="og:image" content="https://newnet.jp/igei/img/logo.jpg">
+<link rel="icon" href='data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="-119 -372 1420 1420"><rect x="-119" y="-372" width="1420" height="1420" fill="black"/><g fill="white"><rect x="0" y="0" width="178" height="676"/><path d="M570,0 570,126 313,339 543,528 543,475 387,338 574,165 574,676 567,676 178,341 178,314Z"/><path d="M969,0 969,126 700,338 969,550 969,676 574,357 574,319Z"/><path d="M969,165 790,314 726,314 700,338 726,362 790,362 969,483Z"/><rect x="1005" y="0" width="177" height="676"/></g></svg>'>
+<link rel="preload" as="image" href="img/box-front.png?v=3" fetchpriority="high">
+<link rel="preload" as="image" href="img/blister.jpg">
+<link rel="preload" as="image" href="img/paper.jpg">
+<style>
+  /* 指示書(9/9): 箱は小さく、中身（錠剤シート・添付文書）は大きく。
+     --bs=箱の倍率(長辺340px基準) --blw=錠剤シート幅 --pw=添付文書幅 */
+  :root{--bs:.7;--by:0px;--boxlift:70px;--traybottom:170px;
+    --blw:min(clamp(116px,40vw,175px),calc((100svh - 460px) * 682 / 1655));--pw:min(330px,calc(100vw - 36px))}
+  *{box-sizing:border-box}
+  html,body{margin:0;overflow-x:clip}
+  body{
+    background:#fff;min-height:100svh;
+    font-family:"Helvetica Neue",Helvetica,Arial,"Hiragino Kaku Gothic ProN","Noto Sans JP",sans-serif;
+    -webkit-user-select:none;user-select:none;
+  }
+  body:not(.opened){overflow:hidden;height:100svh}
+
+  /* ═════ 中身（開封後） ═════
+     錠剤シート幅(--blw)は各ブレークポイントで 100svh から上下の余白と添付文書ぶんを引いた高さで頭打ちにし、
+     開封後の画面がスクロールなしで収まるようにする */
+  .tray{
+    display:flex;flex-direction:column;align-items:center;gap:12px;
+    padding:16px 10px var(--traybottom);min-height:100svh;pointer-events:none;
+  }
+  body.opened .tray{pointer-events:auto}
+  .tray>*{
+    opacity:0;transform:translateY(40svh) scale(.5);
+    transition:opacity .45s ease,transform .85s cubic-bezier(.2,.85,.3,1);
+  }
+  body.opened .tray>*{opacity:1;transform:none}
+  body.opened .blister{transition-delay:.05s}
+  body.opened .paper{transition-delay:.15s}
+  body.opened .row{transition-delay:.24s}
+
+  .blister{position:relative;display:block;line-height:0;
+    filter:drop-shadow(0 14px 24px rgba(0,0,0,.28))}
+  .blister img{
+    display:block;width:var(--blw);height:auto;
+    -webkit-mask-image:url(img/blister-mask.png);mask-image:url(img/blister-mask.png);
+    -webkit-mask-size:100% 100%;mask-size:100% 100%;
+  }
+  .hotspots{
+    position:absolute;inset:0;display:grid;grid-template-columns:1fr 1fr;
+    grid-template-rows:22.7% 19% 19.3% 19% 20%;
+  }
+  .hotspots a{-webkit-tap-highlight-color:transparent}
+  .hotspots a:hover,.hotspots a:focus-visible{
+    background:radial-gradient(52% 46% at 50% 40%,rgba(255,255,255,.34),rgba(255,255,255,0) 72%);
+  }
+  .hotspots a:active{
+    background:radial-gradient(52% 46% at 50% 40%,rgba(42,99,176,.14),rgba(42,99,176,0) 72%);
+  }
+
+  /* 添付文書（展開前の紙。支給画像） */
+  .paper{display:block;width:var(--pw);line-height:0;filter:drop-shadow(0 8px 18px rgba(0,0,0,.14))}
+  .paper img{display:block;width:100%;height:auto}
+
+  /* ◀ PACKAGE ／ MORE ▶: 添付文書の下に左右振り分け（指示書 9/9 の画面例）。
+     級数は錠剤シート上の「MENU」と同じ = シート幅 × 0.106（blister.jpg 実測: キャップハイト 52px/682px ÷ 0.72） */
+  .row{display:flex;justify-content:space-between;width:var(--pw);margin-top:-4px}
+  .more,.pkgbtn{
+    background:none;border:0;padding:6px 10px;margin:0 -10px;cursor:pointer;color:#111;
+    font:700 calc(var(--blw) * .106)/1 "Helvetica Neue",Helvetica,Arial,"Hiragino Kaku Gothic ProN","Noto Sans JP",sans-serif;
+    letter-spacing:.04em;text-decoration:none;-webkit-tap-highlight-color:transparent;transition:opacity .2s;
+  }
+  @media (hover:hover){
+    .more:hover,.pkgbtn:hover{opacity:.5}
+    .paper{transition:filter .25s}
+    .paper:hover{filter:drop-shadow(0 14px 30px rgba(0,0,0,.22))}
+  }
+
+  /* 背の低いスマホ（SE 等）: 全体を少し縮めて MORE / PACKAGE が箱に隠れないようにする */
+  @media (max-width:699px) and (max-height:700px){
+    :root{--bs:.62;--boxlift:56px;--traybottom:145px;--blw:min(clamp(100px,32vw,140px),calc((100svh - 380px) * 682 / 1655));--pw:min(265px,calc(100vw - 36px))}
+    .tray{gap:10px;padding-top:12px}
+  }
+
+  /* タブレット縦 */
+  @media (min-width:700px) and (max-width:919px){
+    :root{--bs:.9;--boxlift:86px;--traybottom:160px;--blw:min(250px,calc((100svh - 550px) * 682 / 1655));--pw:430px}
+    .tray{padding:26px 24px var(--traybottom);gap:14px}
+  }
+
+  /* ═════ 大画面: 錠剤シートと添付文書を横に並べる ═════ */
+  @media (min-width:920px) and (min-height:620px){
+    :root{--bs:1;--boxlift:96px;--traybottom:165px;--blw:min(300px,calc((100svh - 195px) * 682 / 1655));--pw:min(460px,calc(100vw - 520px))}
+    .tray{
+      display:grid;justify-content:center;align-content:center;
+      grid-template-areas:"blister paper" "blister row";
+      grid-template-columns:auto auto;grid-template-rows:auto auto;
+      column-gap:min(6vw,76px);row-gap:10px;
+      padding:20px 40px var(--traybottom);
+    }
+    .blister{grid-area:blister;justify-self:center;align-self:start}
+    .paper{grid-area:paper;align-self:start}
+    .row{grid-area:row;align-self:start}
+  }
+  /* 横向きスマホ / 背の低い窓 */
+  @media (min-width:720px) and (max-height:619px){
+    :root{--bs:.45;--boxlift:44px;--traybottom:100px;--blw:calc(62svh * 682 / 1655);--pw:min(310px,calc(100vw - 340px))}
+    .tray{
+      display:grid;justify-content:center;align-content:center;
+      grid-template-areas:"blister paper" "blister row";
+      grid-template-columns:auto auto;grid-template-rows:auto 1fr;
+      column-gap:min(5vw,48px);row-gap:4px;padding:12px 24px var(--traybottom);
+    }
+    .blister{grid-area:blister;justify-self:center;align-self:start}
+    .paper{grid-area:paper;align-self:start}
+    .row{grid-area:row;align-self:start}
+  }
+  @media (min-width:1500px) and (min-height:900px){
+    :root{--bs:1.2;--boxlift:110px;--traybottom:200px;--blw:min(340px,calc((100svh - 230px) * 682 / 1655));--pw:525px}
+  }
+  /* 27インチ級 */
+  @media (min-width:2000px) and (min-height:1200px){
+    :root{--bs:1.5;--boxlift:140px;--traybottom:260px;--blw:min(420px,calc((100svh - 290px) * 682 / 1655));--pw:655px}
+  }
+
+  /* ═════ 箱（340 × 204 × 84 = 支給展開図の比率） ═════ */
+  .boxlayer{
+    position:fixed;left:50%;top:50%;z-index:5;perspective:1300px;
+    transform:translate(-50%,-50%) translateY(var(--by)) scale(var(--bs));
+    transition:transform .85s cubic-bezier(.45,0,.2,1);
+    touch-action:none;-webkit-tap-highlight-color:transparent;cursor:grab;
+  }
+  .boxlayer:active{cursor:grabbing}
+  body.opened .boxlayer{--by:calc(50dvh - var(--boxlift));cursor:pointer}
+  .boxlayer::before{content:"";position:absolute;inset:-24px -28px}
+  .boxlayer::after{                    /* 接地影 */
+    content:"";position:absolute;left:2%;right:2%;bottom:-10px;height:30px;z-index:-1;
+    background:radial-gradient(50% 50% at 50% 50%,rgba(0,0,0,.34),rgba(0,0,0,0) 72%);
+    opacity:0;transition:opacity .6s .3s;pointer-events:none;
+  }
+  body.opened .boxlayer::after{opacity:1}
+  .box{
+    position:relative;width:340px;height:204px;transform-style:preserve-3d;
+    /* 箱全体は正面から見て180°回した向きで置く(rotateZ)。前面ロゴは添付文書と同じ向きになり、QRフタは左端 */
+    transform:rotateX(var(--rx,-13deg)) rotateY(var(--ry,-31deg)) rotateZ(180deg);
+    transition:transform .8s cubic-bezier(.45,0,.2,1);
+  }
+  body.drag .box{transition:none}
+  body.turn .box{--ry:180deg;transition:transform 1s cubic-bezier(.5,0,.2,1)}
+  body.opened .box{--rx:58deg;--ry:180deg}
+  body.intro .box{animation:flatIn 2.2s cubic-bezier(.45,0,.2,1) both}
+  body.intro .boxlayer{animation:boxIn .5s ease both}
+  @keyframes boxIn{from{opacity:0}}
+  /* ロゴが完全に正面（平面画像に見える角度）で止まってから、ゆっくり傾いて直方体だと分かる。
+     ここに opacity を入れると preserve-3d が平面化され前面の1枚絵になるので入れない */
+  @keyframes flatIn{0%,35%{transform:rotateX(0deg) rotateY(0deg) rotateZ(180deg)}100%{transform:rotateX(-13deg) rotateY(-31deg) rotateZ(180deg)}}
+
+  /* 各面の刷りは支給展開図の切り出し画像 */
+  .face{
+    position:absolute;background:#000 center/100% 100% no-repeat;overflow:hidden;
+    display:flex;align-items:center;justify-content:center;
+    backface-visibility:hidden;-webkit-backface-visibility:hidden;
+    box-shadow:inset 0 0 0 1px rgba(255,255,255,.055);
+  }
+  .front,.back{width:340px;height:204px}
+  .front{transform:translateZ(42px);background-image:url(img/box-front.png?v=3)}
+  /* 前面の内側。開封後に裏面の抜き穴から箱の中が見えるとき、素通し(白)にならないように */
+  .inner{width:340px;height:204px;transform:rotateY(180deg) translateZ(-41px);background:#141414;box-shadow:none}
+  /* 裏面の刷りは箱に対して180°回して貼る(rotateX)。水平回転で裏面を見たとき文字が正位置・差し込み口が右(QRフタ側)になる */
+  .back{transform:rotateX(180deg) translateZ(42px);background-image:url(img/box-back.png?v=5)}
+  .side{width:84px;height:204px;left:128px}
+  .left{transform:rotateY(-90deg) translateZ(170px);background-image:url(img/box-left.png?v=3)}
+
+  /* 開口部(右端。展開図で前面の右に続くQRパネルが差し込みフタ): 内側が見えるので暗く落とす */
+  .right{
+    transform:rotateY(90deg) translateZ(170px);
+    background:radial-gradient(120% 90% at 50% 0%,#131313,#000 72%);
+    overflow:visible;box-shadow:inset 0 0 14px 6px rgba(0,0,0,.9);
+    backface-visibility:visible;-webkit-backface-visibility:visible;
+    transform-style:preserve-3d;
+  }
+  /* キャラメル箱(サック箱)の口: 天地から出たダストフラップを先に内側へ折り込み、
+     前面パネルから出た差し込みフタがその上を覆ってタブを背面の差し込み口へ差す。
+     開けてもダストフラップは折り込まれたまま動かず、フタだけが背面側へ倒れる。 */
+  .dust{
+    position:absolute;left:0;width:84px;height:70px;
+    background:linear-gradient(#0b0b0b,#030303);
+    box-shadow:inset 0 0 0 1px rgba(255,255,255,.045);
+  }
+  .dust-t{top:0}
+  .dust-b{bottom:0;background:linear-gradient(#030303,#0b0b0b)}
+  .flap{
+    position:absolute;inset:0;
+    background:#000 url(img/box-right.png?v=3) center/100% 100% no-repeat;
+    box-shadow:inset 0 0 0 1px rgba(255,255,255,.06);
+    transform-origin:0% 50%;                /* 前面パネル側の折り筋 */
+    transform:translateZ(1.4px) rotateY(var(--fl,0deg));
+    transition:transform .6s cubic-bezier(.4,0,.2,1);
+  }
+  .flap::after{                             /* 差し込みタブ(自由端側、展開図の角丸タブ寸法)。閉じている間は箱の中 */
+    content:"";position:absolute;right:-17px;top:39px;bottom:41px;width:19px;
+    opacity:0;transition:opacity .25s;
+    background:linear-gradient(96deg,#101010,#060606);
+    border-radius:0 17px 17px 0/0 23px 23px 0;
+    box-shadow:inset -1px 0 0 rgba(255,255,255,.05);
+  }
+  body.lidopen .flap{--fl:-75deg}         /* 扉のように外へ開き、背面側へ垂れる */
+  body.lidopen .flap{background-image:none;background-color:#0a0a0a}  /* 開いたら刷りは無し */
+  body.lidopen .right{background:#000;box-shadow:none}  /* 開口部は素の空洞に */
+  body.lidopen .dust{display:none}
+  body.lidopen .flap::after{opacity:1}
+  /* 開口部からは天地の内側が見えるので、裏面も描画する（素通し防止） */
+  .flat{
+    width:340px;height:84px;top:60px;
+    backface-visibility:visible;-webkit-backface-visibility:visible;
+  }
+  .top{transform:rotateX(90deg) translateZ(102px);background-image:url(img/box-top.png?v=3)}
+  .bottom{transform:rotateX(-90deg) translateZ(102px);background-image:url(img/box-bottom.png?v=3)}
+  /* 裏面右端(QRフタ側)の差し込み口。角丸の切り取り線は支給レイアウトの刷りそのもの。
+     CSSでは線を描かない（二重になるため）。.tear は当たり判定だけ */
+  .tear{position:absolute;top:0;bottom:0;right:0;width:16%}
+  /* 開けた後は差し込み口が抜けた版に差し替え */
+  body.lidopen .back{background-color:transparent;background-image:url(img/box-back-open.png?v=5)}
+
+  .hint{
+    position:fixed;left:0;right:0;bottom:max(30px,env(safe-area-inset-bottom));z-index:6;
+    margin:0;text-align:center;pointer-events:none;
+    font-size:10px;letter-spacing:.5em;text-indent:.5em;color:#b5b5b2;
+    transition:opacity .3s;
+  }
+  body.opened .hint,body.turn .hint{opacity:0}
+
+  @media (prefers-reduced-motion: reduce){
+    .tray>*,.box,.boxlayer,.flap,.hint{transition:none}
+    body.intro .box,body.intro .boxlayer{animation:none}
+  }
+</style>
+<noscript><style>
+  body{overflow:auto!important;height:auto!important}
+  .tray>*{opacity:1!important;transform:none!important}
+  .boxlayer,.pkgbtn,.hint{display:none}
+</style></noscript>
+</head>
+<body class="intro">
+
+<main class="tray" id="tray">
+  <nav class="blister" aria-label="メニュー">
+    <img src="img/blister.jpg" alt="MENU" width="682" height="1655" fetchpriority="high">
+    <div class="hotspots">
+      <a href="insert.html#about" aria-label="ABOUT"></a>
+      <a href="insert.html#exhibition" aria-label="EXHIBITION"></a>
+      <a href="insert.html#artwork" aria-label="ARTWORK"></a>
+      <a href="insert.html#project" aria-label="PROJECT"></a>
+      <a href="insert.html#commission" aria-label="COMMISSION"></a>
+      <a href="insert.html#shop" aria-label="SHOP"></a>
+      <a href="insert.html#podcast" aria-label="PODCAST"></a>
+      <a href="insert.html#media" aria-label="MEDIA"></a>
+      <a href="insert.html#sns" aria-label="SNS"></a>
+      <a href="insert.html#contact" aria-label="CONTACT"></a>
+    </div>
+  </nav>
+
+  <a class="paper" href="insert.html" aria-label="添付文書を開く">
+    <img src="img/paper.jpg" alt="IGEI Inc. 添付文書" width="1327" height="881">
+  </a>
+
+  <div class="row">
+    <button class="pkgbtn" id="pkgbtn">◀ PACKAGE</button>
+    <a class="more" href="insert.html">MORE ▶</a>
+  </div>
+</main>
+
+<div class="boxlayer" id="boxlayer" role="button" aria-label="パッケージを開ける" tabindex="0">
+  <div class="box" id="box">
+
+    <div class="face front" role="img" aria-label="IGEI"></div>
+    <div class="face inner" aria-hidden="true"></div>
+
+    <div class="face back" aria-hidden="true"><div class="tear"></div></div>
+
+    <div class="face side left"></div>
+    <div class="face side right">
+      <div class="dust dust-t"></div>
+      <div class="dust dust-b"></div>
+      <div class="flap"></div>
+    </div>
+    <div class="face flat top"></div>
+    <div class="face flat bottom"></div>
+
+  </div>
+</div>
+
+<p class="hint" id="hint">TAP TO OPEN</p>
+
+<script>
+(function(){
+  var b=document.body,layer=document.getElementById('boxlayer'),box=document.getElementById('box'),
+      tray=document.getElementById('tray'),pkgbtn=document.getElementById('pkgbtn');
+  var motionOK=!matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var timers=[];
+  function later(fn,ms){timers.push(setTimeout(fn,ms))}
+  function clearLater(){timers.forEach(clearTimeout);timers=[]}
+  function isOpen(){return b.classList.contains('opened')}
+
+  /* ---- 開封 / 収納 ---- */
+  function open(){
+    if(isOpen()||b.classList.contains('busy'))return;
+    clearLater();dropDrag();b.classList.remove('intro');
+    if(!motionOK){b.classList.add('turn','lidopen','opened');sync();return}
+    b.classList.add('busy');
+    void box.offsetWidth;              /* intro の姿勢を確定させてから回す（挟まないと 180° が一瞬で飛ぶ） */
+    b.classList.add('turn');                                         /* 裏面へ水平回転 */
+    later(function(){b.classList.add('lidopen')},1050);                  /* OPEN から開く */
+    later(function(){b.classList.add('opened')},1400);                /* 回転しつつ下部へ＋射出 */
+    later(function(){b.classList.remove('busy');sync()},2300);
+  }
+  function close(){
+    clearLater();dropDrag();
+    b.classList.remove('opened','lidopen','turn','busy','intro','drag');
+    scrollTo(0,0);sync();
+  }
+  function sync(){
+    if('inert' in tray)tray.inert=!isOpen();
+    layer.setAttribute('aria-label',isOpen()?'パッケージに戻す':'パッケージを開ける');
+  }
+
+  /* ---- 箱のドラッグ回転（パッケージ状態のみ） ---- */
+  var RX0=-13,RY0=-31,rx=RX0,ry=RY0,dragging=false,moved=0,px=0,py=0,backAt=0,pid=null,downOnOpen=false;
+  /* 回転はインラインのカスタムプロパティ。状態クラス側の指定を潰すので開封時は必ず外す */
+  function render(){box.style.setProperty('--rx',rx+'deg');box.style.setProperty('--ry',ry+'deg')}
+  function dropDrag(){
+    dragging=false;pid=null;backAt=0;rx=RX0;ry=RY0;
+    box.style.removeProperty('--rx');box.style.removeProperty('--ry');
+  }
+  function canDrag(){return !isOpen()&&!b.classList.contains('busy')&&!b.classList.contains('intro')}
+  (function tick(){
+    if(canDrag()&&!dragging&&backAt&&Date.now()>backAt){
+      if(Math.abs(rx-RX0)>.05||Math.abs(ry-RY0)>.05){rx+=(RX0-rx)*.05;ry+=(RY0-ry)*.05;render()}
+      else dropDrag();
+    }
+    requestAnimationFrame(tick);
+  })();
+
+  layer.addEventListener('pointerdown',function(e){
+    if(!canDrag()||e.button||dragging)return;
+    dragging=true;pid=e.pointerId;moved=0;px=e.clientX;py=e.clientY;backAt=0;
+    downOnOpen=!!(e.target.closest&&e.target.closest('.tear'));
+    b.classList.add('drag');layer.setPointerCapture(e.pointerId);
+  });
+  layer.addEventListener('pointermove',function(e){
+    if(!dragging||e.pointerId!==pid)return;
+    var dx=e.clientX-px,dy=e.clientY-py;px=e.clientX;py=e.clientY;
+    moved+=Math.abs(dx)+Math.abs(dy);
+    ry+=dx*.45;rx=Math.max(-80,Math.min(80,rx-dy*.45));render();
+  });
+  layer.addEventListener('pointerup',function(e){
+    if(!dragging||e.pointerId!==pid)return;
+    dragging=false;pid=null;b.classList.remove('drag');
+    if(moved>=10){backAt=Date.now()+2000;return}
+    /* 指示書: 箱に触れるのは回転のみ。開くのは「OPEN」をタップしたときだけ */
+    if(downOnOpen)open();
+  });
+  layer.addEventListener('pointercancel',function(e){
+    if(e.pointerId!==pid)return;
+    dragging=false;pid=null;b.classList.remove('drag');backAt=Date.now()+2000;
+  });
+  layer.addEventListener('touchmove',function(e){if(dragging)e.preventDefault()},{passive:false});
+  layer.addEventListener('keydown',function(e){
+    if(e.key!=='Enter'&&e.key!==' ')return;
+    e.preventDefault();isOpen()?close():open();
+  });
+  /* 開封後は箱＝PACKAGE。触ればパッケージ状態へ戻る */
+  layer.addEventListener('click',function(){if(isOpen())close()});
+
+  /* 箱以外をタップしても開封（パッケージ状態） */
+  addEventListener('pointerup',function(e){
+    if(isOpen()||dragging||layer.contains(e.target)||e.target.closest('a,button'))return;
+    open();
+  });
+
+  /* ◀ PACKAGE → 最初の画面へ */
+  pkgbtn.addEventListener('click',close);
+
+  /* ---- 起動シーケンス: 正面静止 → 前傾 → 水平回転 → 開封 ---- */
+  sync();
+  if(motionOK)later(open,2300); else open();
+
+  /* 添付文書から戻った(bfcache)ときはアニメーション無しで開封済みの画面に戻す */
+  addEventListener('pageshow',function(e){
+    if(!e.persisted)return;
+    clearLater();dropDrag();
+    b.className='opened turn lidopen';sync();
+  });
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>IGEI Inc.｜医療藝術融合会社</title>
+<meta name="description" content="IGEI = 医藝。MED〈医(i)〉+ ART〈藝(gei)〉 PROJECT FROM JAPAN.">
+<link rel="icon" href='data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="-119 -372 1420 1420"><rect x="-119" y="-372" width="1420" height="1420" fill="black"/><g fill="white"><rect x="0" y="0" width="178" height="676"/><path d="M570,0 570,126 313,339 543,528 543,475 387,338 574,165 574,676 567,676 178,341 178,314Z"/><path d="M969,0 969,126 700,338 969,550 969,676 574,357 574,319Z"/><path d="M969,165 790,314 726,314 700,338 726,362 790,362 969,483Z"/><rect x="1005" y="0" width="177" height="676"/></g></svg>'>
+<meta name="theme-color" content="#000000">
+<meta property="og:title" content="IGEI Inc.｜医療藝術融合会社">
+<meta property="og:image" content="https://newnet.jp/igei/img/logo.jpg">
+<style>
+  :root{
+    --ink:#2a63b0;          /* 指示書 R42 G99 B176 */
+    --line:#5b8fd0;         /* 枠線（細い水色） */
+    --tbh:46px;
+    --tb:calc(var(--tbh) + env(safe-area-inset-top,0px));
+    --en:"Helvetica Neue",Helvetica,Arial,sans-serif;
+    --jp:"Hiragino Kaku Gothic ProN","Hiragino Sans","Noto Sans JP",sans-serif;
+  }
+  *{box-sizing:border-box}
+  body{
+    margin:0;overflow-x:clip;background:#fff;color:var(--ink);
+    padding-top:var(--tb);
+    font-family:var(--en),var(--jp);
+    -webkit-text-size-adjust:100%;
+  }
+  a{color:inherit}
+
+  .topbar{
+    position:fixed;top:0;left:0;right:0;z-index:20;
+    height:var(--tb);padding:env(safe-area-inset-top,0px) 10px 0;
+    background:#000;display:flex;align-items:center;gap:18px;
+  }
+  .tb-home{flex:none;display:flex;align-items:center;padding:4px 2px}
+  /* ロゴは支給データそのまま（アルファPNGをマスクにして色だけ付ける） */
+  .logo{display:block;aspect-ratio:1182/676;background:currentColor;
+    -webkit-mask:url(img/logo-mask.png) center/contain no-repeat;mask:url(img/logo-mask.png) center/contain no-repeat}
+  .tb-home .logo{height:20px;color:#fff}
+  .tb-links{display:flex;gap:26px;overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+  .tb-links::-webkit-scrollbar{display:none}
+  .tb-links a{
+    color:#fff;font-family:var(--en);font-weight:700;
+    font-size:13px;letter-spacing:.06em;text-decoration:none;white-space:nowrap;
+    padding:12px 0;-webkit-tap-highlight-color:transparent;
+  }
+  .tb-links a:hover,.tb-links a:focus-visible{color:#bfd8ef}
+
+  main{width:min(880px,100%);margin:0 auto;padding:14px 18px 70px}
+  @media (min-width:1600px){main{width:min(1040px,100%);padding:24px 24px 100px}}
+
+  /* 最上部タイトル: 二字熟語 / 英語 を細枠の角丸で。級数は一番長い COMMISSION が収まる値で全項目共通 */
+  .ttl{
+    border:1.5px solid var(--line);border-radius:14px;overflow:hidden;
+    text-align:center;font-weight:800;line-height:1;letter-spacing:-.02em;
+    font-size:min(64px,calc((100vw - 76px) / 6.9));
+  }
+  .ttl span{display:block;padding:.28em 0 .22em}
+  .ttl .jp{font-family:var(--jp);font-weight:700;border-bottom:1.5px solid var(--line)}
+  .ttl .en{font-family:var(--en)}
+
+  /* 記事: 細枠の角丸ボックスに 文 ＋ 画像 */
+  .art{
+    border:1.5px solid var(--line);border-radius:14px;padding:16px 18px 18px;margin-top:16px;
+    scroll-margin-top:calc(var(--tb) + 12px);
+    font-size:clamp(14px,3.9vw,16px);font-weight:700;line-height:1.85;
+  }
+  .art p{margin:0}
+  .art .t{font-size:1.05em}
+  .art .t::before{content:"・"}
+  .art .s::before{content:"▶"}
+  .art .t+.s,.art .s+.pic,.art .t+.pic{margin-top:2px}
+  .art .pic{display:block;width:100%;height:auto;margin:10px 0}
+  .art .pic+.pic{margin-top:-2px}
+  .art .body{white-space:pre-line;text-align:justify;margin-top:8px}
+  .art .body a,.art .rel a{word-break:break-all;text-decoration:underline;text-underline-offset:3px}
+  .art .rel{margin-top:10px;font-weight:500}
+  .art.empty{text-align:center;color:#7f9ec0;letter-spacing:.3em;text-indent:.3em;font-size:12px;padding:40px 18px}
+  .art:target{animation:flash 1.4s ease-out}
+  @keyframes flash{from{background:#eaf2fb}}
+
+  .foot{
+    margin-top:44px;padding-top:16px;border-top:1.5px solid var(--line);
+    display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap;
+    font-family:var(--en);font-size:11px;letter-spacing:.2em;
+  }
+  .foot a{text-decoration:none}
+  .foot a:hover{text-decoration:underline}
+  .copy{text-align:center;margin:36px 0 0;font-family:var(--en);font-weight:700;font-size:13px;color:#111}
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <a class="tb-home" href="index.html" aria-label="パッケージ（トップ）へ戻る">
+    <span class="logo" aria-hidden="true"></span>
+  </a>
+  <nav class="tb-links" aria-label="セクション">
+    <a href="insert.html">TOP</a><a href="insert.html#about">ABOUT</a><a href="insert.html#exhibition">EXHIBITION</a><a href="insert.html#artwork">ARTWORK</a><a href="insert.html#project">PROJECT</a><a href="insert.html#commission">COMMISSION</a><a href="insert.html#shop">SHOP</a><a href="insert.html#podcast">PODCAST</a><a href="insert.html#media">MEDIA</a><a href="insert.html#sns">SNS</a><a href="insert.html#contact">CONTACT</a>
+  </nav>
+</header>
+
+<main>
+  <h1 class="ttl" id="title"></h1>
+  <div id="arts"><div class="art empty">COMING SOON</div></div>
+
+  <div class="foot">
+    <a href="insert.html">← 添付文書 / TOP</a>
+    <a href="index.html">PACKAGE</a>
+  </div>
+  <p class="copy">&copy;IGEI Inc.</p>
+</main>
+
+<script>
+(function(){
+  /* 見出しは添付文書の各項目名と同一（二字熟語 / 英語） */
+  var T={
+    about:['沿革','ABOUT'],
+    exhibition:['展示','EXHIBITION'],
+    artwork:['作品','ARTWORK'],
+    project:['計画','PROJECT'],
+    commission:['依頼','COMMISSION'],
+    shop:['売店','SHOP'],
+    podcast:['放送','PODCAST'],
+    media:['媒体','MEDIA'],
+    sns:['交流','SNS'],
+    contact:['連絡','CONTACT']
+  };
+  var key=(new URLSearchParams(location.search).get('s')||'').toLowerCase();
+  if(!T[key]){location.replace('insert.html');return}
+
+  var t=T[key],h=document.getElementById('title');
+  h.appendChild(Object.assign(document.createElement('span'),{className:'jp',textContent:t[0]}));
+  h.appendChild(Object.assign(document.createElement('span'),{className:'en',textContent:t[1]}));
+  document.title='IGEI Inc.｜'+t[0]+' / '+t[1];
+
+  function linkify(text){
+    var frag=document.createDocumentFragment();
+    text.split(/(https?:\/\/[^\s、。）」]+)/g).forEach(function(part){
+      if(/^https?:\/\//.test(part)){
+        var a=document.createElement('a');
+        a.href=part;a.target='_blank';a.rel='noopener';
+        a.textContent=part.replace(/^https?:\/\/(www\.)?/,'').replace(/\/$/,'');
+        frag.appendChild(a);
+      }else frag.appendChild(document.createTextNode(part));
+    });
+    return frag;
+  }
+  function el(tag,cls,text){
+    var e=document.createElement(tag);if(cls)e.className=cls;if(text!=null)e.textContent=text;return e;
+  }
+
+  fetch('content.json',{cache:'no-store'})
+    .then(function(r){return r.ok?r.json():null})
+    .then(function(c){
+      var arts=(((c||{}).sections||{})[key]||{}).articles||[];
+      if(!arts.length)return;
+      var box=document.getElementById('arts');
+      box.textContent='';
+      arts.forEach(function(a,i){
+        var d=el('div','art');d.id='a'+i;
+        if(a.title)d.appendChild(el('p','t',a.title));
+        if(a.sub)d.appendChild(el('p','s',a.sub+(a.date?'（'+a.date+'）':'')));
+        else if(a.date)d.appendChild(el('p','s',a.date));
+        (a.images||[]).forEach(function(src){
+          var im=el('img','pic');im.src=src;im.alt=a.title||'';im.loading=i?'lazy':'eager';im.decoding='async';
+          d.appendChild(im);
+        });
+        if((a.text||'').trim()){
+          var body=el('div','body');
+          a.text.trim().split(/\n{2,}/).forEach(function(para){
+            var p=el('p');p.appendChild(linkify(para));body.appendChild(p);
+          });
+          d.appendChild(body);
+        }
+        if(a.link){
+          var rel=el('p','rel','関連記事 / Related Article :');
+          rel.appendChild(el('br'));
+          var ln=el('a',null,a.link);ln.href=a.link;ln.target='_blank';ln.rel='noopener';
+          rel.appendChild(ln);
+          d.appendChild(rel);
+        }
+        box.appendChild(d);
+      });
+      if(location.hash){
+        var tgt=document.getElementById(location.hash.slice(1));
+        if(tgt)tgt.scrollIntoView({behavior:'auto'});
+      }
+    })
+    .catch(function(){});
+})();
+</script>
+</body>
+</html>

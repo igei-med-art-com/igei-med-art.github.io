@@ -226,22 +226,41 @@
       ]
     },
     "podcast": {
-      "summary": "▶︎\"IGEI〈医藝〉Podcast\" on Spotify.\n▶︎...",
+      "summary": "▶︎\"IGEI〈医藝〉Podcast\" on Spotify.\nhttps://open.spotify.com/show/1BJFM6Yn24EJyHiwIQsJdF\n▶︎...",
       "articles": [
         {
-          "title": "",
-          "sub": "",
-          "date": "",
+          "title": "IGEI〈医藝〉Podcast",
+          "sub": "Podcast (on Spotify)",
+          "date": "2025-",
           "text": "",
           "images": [],
-          "link": "",
-          "updated": "2026-09-12T07:19:31"
+          "link": "https://open.spotify.com/show/1BJFM6Yn24EJyHiwIQsJdF",
+          "updated": "2026-09-12T07:23:51"
         }
       ]
     },
     "media": {
-      "summary": "▶︎「医学部卒のデザイナー・陣内良飛 (WWD JAPAN)」(2026)\n▶︎「ダミアン・ハーストには描けない医療のリアルを（FashionSnap）」(2026)\n▶︎...",
-      "articles": []
+      "summary": "▶︎「医学部卒のデザイナー・陣内良飛インタビュー (WWD JAPAN)」(2026)\n▶︎「ダミアン・ハーストには描けない医療のリアルを（FashionSnap）」(2026)\n▶︎...",
+      "articles": [
+        {
+          "title": "WWD JAPAN",
+          "sub": "",
+          "date": "",
+          "text": "",
+          "images": [],
+          "link": "https://www.wwdjapan.com/articles/2365851",
+          "updated": "2026-09-12T07:23:51"
+        },
+        {
+          "title": "fashionsnap",
+          "sub": "",
+          "date": "",
+          "text": "",
+          "images": [],
+          "link": "https://www.fashionsnap.com/article/equal-medical-center-jinnai-interview/",
+          "updated": "2026-09-12T07:23:51"
+        }
+      ]
     },
     "sns": {
       "summary": "▶︎Instagram : https://www.instagram.com/igei_official\n▶︎YouTube : https://www.youtube.com/channel/UCq-IzFOm72zbyYn-s_pBbWg\n▶︎Spotify : https://open.spotify.com/artist/3STCT4tT5F0nB23i2wy7ti\n▶︎Apple Music : https://music.apple.com/jp/artist/igei/6782332730\n▶︎陣内良飛 Instagram : https://www.instagram.com/ryoto_jinnai",

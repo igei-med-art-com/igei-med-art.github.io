@@ -247,28 +247,76 @@
           "sub": "",
           "date": "",
           "text": "",
-          "images": [],
+          "images": [
+            "img/1789198085914-0.jpeg"
+          ],
           "link": "https://www.wwdjapan.com/articles/2365851",
-          "updated": "2026-09-12T07:23:51"
+          "updated": "2026-09-12T07:28:05"
         },
         {
           "title": "fashionsnap",
           "sub": "",
           "date": "",
           "text": "",
-          "images": [],
+          "images": [
+            "img/1789198087549-1.jpeg"
+          ],
           "link": "https://www.fashionsnap.com/article/equal-medical-center-jinnai-interview/",
-          "updated": "2026-09-12T07:23:51"
+          "updated": "2026-09-12T07:28:05"
         }
       ]
     },
     "sns": {
       "summary": "▶︎Instagram : https://www.instagram.com/igei_official\n▶︎YouTube : https://www.youtube.com/channel/UCq-IzFOm72zbyYn-s_pBbWg\n▶︎Spotify : https://open.spotify.com/artist/3STCT4tT5F0nB23i2wy7ti\n▶︎Apple Music : https://music.apple.com/jp/artist/igei/6782332730\n▶︎陣内良飛 Instagram : https://www.instagram.com/ryoto_jinnai",
-      "articles": []
+      "articles": [
+        {
+          "title": "Instagram",
+          "sub": "",
+          "date": "",
+          "text": "",
+          "images": [
+            "img/1789198089052-2.jpeg"
+          ],
+          "link": "https://www.instagram.com/igei_official",
+          "updated": "2026-09-12T07:28:05"
+        },
+        {
+          "title": "YouTube",
+          "sub": "",
+          "date": "",
+          "text": "",
+          "images": [
+            "img/1789198092024-3.png"
+          ],
+          "link": "https://www.youtube.com/channel/UCq-IzFOm72zbyYn-s_pBbWg",
+          "updated": "2026-09-12T07:28:05"
+        }
+      ]
     },
     "contact": {
       "summary": "▶︎E-mail : igei.med.art@gmail.com\n▶︎Instagram (DM) : https://www.instagram.com/igei_official",
-      "articles": []
+      "articles": [
+        {
+          "title": "E-mail",
+          "sub": "",
+          "date": "",
+          "text": "",
+          "images": [],
+          "link": "",
+          "updated": "2026-09-12T07:28:05"
+        },
+        {
+          "title": "Instagram (DM)",
+          "sub": "",
+          "date": "",
+          "text": "",
+          "images": [
+            "img/1789198095102-4.png"
+          ],
+          "link": "https://www.instagram.com/igei_official",
+          "updated": "2026-09-12T07:28:05"
+        }
+      ]
     }
   }
 }

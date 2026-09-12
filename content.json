@@ -105,18 +105,29 @@
       ]
     },
     "exhibition": {
-      "summary": "▶︎??????????? (2026, ??)\n▶︎=QUAL M=DICAL C=NT=R (2026, BLOCK HOUSE)\n▶︎MEMENTO (2023, TIERS GALLERY)\n▶︎...",
+      "summary": "▶︎??????????? (2026, ??)\n▶︎=QUAL M=DICAL C=NT=R (2026, BLOCK HOUSE)\n▶︎MEMENTO (2023, TIERS ART GALLERY)\n▶︎...",
       "articles": [
         {
           "title": "=QUAL M=DICAL C=NT=R",
           "sub": "EXHIBITION ( + CLOVEROM, Kenta Toda)",
-          "date": "2026.03 / BLOCK HOUSE, Tokyo, JP",
+          "date": "2026 / BLOCK HOUSE, Tokyo, JP",
           "text": "",
           "images": [
-            "img/1789193214962-0.png"
+            "img/1789196826133-0.png"
           ],
           "link": "blockhouse.jp/index.php?itemid=329",
-          "updated": "2026-09-12T06:14:54"
+          "updated": "2026-09-12T07:07:06"
+        },
+        {
+          "title": "MEMENTO",
+          "sub": "EXHIBITION ( + Yuki Matsuura, ISONUMA)",
+          "date": "2023 / TIERS ART GALLERY ",
+          "text": "",
+          "images": [
+            "img/1789196843759-1.jpeg"
+          ],
+          "link": "https://artsticker.app/events/9176",
+          "updated": "2026-09-12T07:07:06"
         }
       ]
     },

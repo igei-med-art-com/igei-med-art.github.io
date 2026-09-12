@@ -136,14 +136,15 @@
       "articles": [
         {
           "title": "IGEI - Am I Living?",
-          "sub": "Single + Animation",
-          "date": "",
+          "sub": "Music + Animation",
+          "date": "2026",
           "text": "single : https://linkco.re/S6StGA3g?select=listen\nanimation : https://www.youtube.com/watch?v=iNVgroUCwU4",
           "images": [
-            "img/am-i-living.jpg"
+            "img/1789197124971-0.jpeg",
+            "img/1789197127821-1.jpeg"
           ],
           "link": "https://www.youtube.com/watch?v=iNVgroUCwU4",
-          "updated": "2026-08-30T00:00:03"
+          "updated": "2026-09-12T07:12:04"
         }
       ]
     },

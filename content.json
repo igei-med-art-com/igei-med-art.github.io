@@ -160,8 +160,20 @@
       ]
     },
     "project": {
-      "summary": "▶︎????/?????? ????? (2026-)\n▶︎=QUAL M=DICAL C=NT=R : =MC™︎ (2026-)\n▶︎...",
-      "articles": []
+      "summary": "▶︎????/?????? ????? (2026-)\n▶︎=QUAL M=DICAL C=NT=R / =MC™︎ (2026-)\n▶︎...",
+      "articles": [
+        {
+          "title": "=QUAL M=DICAL C=NT=R / =MC™︎",
+          "sub": "Product Line",
+          "date": "2026 -",
+          "text": "",
+          "images": [
+            "img/1789197571834-0.png"
+          ],
+          "link": "https://igei.base.shop/",
+          "updated": "2026-09-12T07:19:31"
+        }
+      ]
     },
     "commission": {
       "summary": "▶︎University of Tsukuba Night 2026 (2026, 筑波大学)\n▶︎Shimada Patents Corporation (2025)\n▶︎十/奇奇怪怪 : Tai Tan, 魚豊, 佐伯ポインティ (2025)\n▶︎...",
@@ -215,7 +227,17 @@
     },
     "podcast": {
       "summary": "▶︎\"IGEI〈医藝〉Podcast\" on Spotify.\n▶︎...",
-      "articles": []
+      "articles": [
+        {
+          "title": "",
+          "sub": "",
+          "date": "",
+          "text": "",
+          "images": [],
+          "link": "",
+          "updated": "2026-09-12T07:19:31"
+        }
+      ]
     },
     "media": {
       "summary": "▶︎「医学部卒のデザイナー・陣内良飛 (WWD JAPAN)」(2026)\n▶︎「ダミアン・ハーストには描けない医療のリアルを（FashionSnap）」(2026)\n▶︎...",

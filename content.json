@@ -106,7 +106,19 @@
     },
     "exhibition": {
       "summary": "▶︎2026.?? : ???????????\n▶︎2026.03 : =QUAL M=DICAL C=NT=R (BLOCK HOUSE)\n▶︎2023.06 : MEMENTO (TIERS GALLERY)",
-      "articles": []
+      "articles": [
+        {
+          "title": "=QUAL M=DICAL C=NT=R",
+          "sub": "EXHIBITION ( + CLOVEROM, Kenta Toda)",
+          "date": "2026.03 / BLOCK HOUSE, Tokyo, JP",
+          "text": "",
+          "images": [
+            "img/1789193214962-0.png"
+          ],
+          "link": "https://www.fashionsnap.com/article/2026-03-17/equal-medical-center-block-house/　　https://www.wwdjapan.com/articles/2359489　　https://www.tokyoartbeat.com/events/-/QUAL-M-DICAL-C-NT-R/99-D0045-B/2026-03-20",
+          "updated": "2026-09-12T06:06:54"
+        }
+      ]
     },
     "artwork": {
       "summary": "IGEI - Am I Living?\nsingle : https://linkco.re/S6StGA3g?select=listen\nanimation : https://www.youtube.com/watch?v=iNVgroUCwU4",

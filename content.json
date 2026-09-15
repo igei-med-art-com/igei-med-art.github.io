@@ -375,21 +375,23 @@
           "title": "E-mail",
           "sub": "",
           "date": "",
-          "text": "",
-          "images": [],
+          "text": "igei.med.art@gmail.com",
+          "images": [
+            "img/1789455717292-0.jpeg"
+          ],
           "link": "",
-          "updated": "2026-09-12T07:28:05"
+          "updated": "2026-09-15T07:01:57"
         },
         {
           "title": "Instagram (DM)",
           "sub": "",
           "date": "",
-          "text": "",
+          "text": "Instagram : @igei_official",
           "images": [
             "img/1789198095102-4.png"
           ],
           "link": "https://www.instagram.com/igei_official",
-          "updated": "2026-09-12T07:28:05"
+          "updated": "2026-09-15T07:01:57"
         }
       ]
     }

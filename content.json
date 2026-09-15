@@ -345,7 +345,7 @@
       "summary": "▶︎Instagram : https://www.instagram.com/igei_official\n▶︎YouTube : https://www.youtube.com/channel/UCq-IzFOm72zbyYn-s_pBbWg\n▶︎Spotify : https://open.spotify.com/artist/3STCT4tT5F0nB23i2wy7ti\n▶︎Apple Music : https://music.apple.com/jp/artist/igei/6782332730\n▶︎陣内良飛 Instagram : https://www.instagram.com/ryoto_jinnai",
       "articles": [
         {
-          "title": "Instagram",
+          "title": "Instagram : IGEI",
           "sub": "",
           "date": "",
           "text": "",
@@ -353,18 +353,29 @@
             "img/1789198089052-2.jpeg"
           ],
           "link": "https://www.instagram.com/igei_official",
-          "updated": "2026-09-12T07:28:05"
+          "updated": "2026-09-15T07:06:48"
         },
         {
-          "title": "YouTube",
+          "title": "Instagram : 陣内良飛 | Ryoto Jinnai",
           "sub": "",
           "date": "",
           "text": "",
           "images": [
-            "img/1789198092024-3.png"
+            "img/1789456008401-0.jpeg"
           ],
-          "link": "https://www.youtube.com/channel/UCq-IzFOm72zbyYn-s_pBbWg",
-          "updated": "2026-09-12T07:28:05"
+          "link": "https://www.instagram.com/ryoto_jinnai",
+          "updated": "2026-09-15T07:06:48"
+        },
+        {
+          "title": "X : 陣内良飛 | Ryoto Jinnai",
+          "sub": "",
+          "date": "",
+          "text": "",
+          "images": [
+            "img/1789456099145-1.jpeg"
+          ],
+          "link": "https://x.com/ryoto_tekitou?s=11&t=iPuF0wkWLOdxST-NWRA0-Q",
+          "updated": "2026-09-15T07:06:48"
         }
       ]
     },

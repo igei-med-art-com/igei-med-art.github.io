@@ -297,9 +297,11 @@
           "sub": "Podcast (on Spotify)",
           "date": "2025-",
           "text": "",
-          "images": [],
+          "images": [
+            "img/1789453883776-0.jpeg"
+          ],
           "link": "https://open.spotify.com/show/1BJFM6Yn24EJyHiwIQsJdF",
-          "updated": "2026-09-12T07:23:51"
+          "updated": "2026-09-15T06:31:23"
         }
       ]
     },

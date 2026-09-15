@@ -1,7 +1,7 @@
 {
   "site": {
     "title": "IGEI Inc.｜医療藝術融合会社",
-    "description": "IGEI = 医藝。MED〈医(i)〉+ ART〈藝(gei)〉 PROJECT FROM JAPAN. 医師・アーティストの陣内良飛による医療と藝術の融合を目指すプロジェクト。",
+    "description": "IGEI = 医藝. MED〈医(i)〉+ ART〈藝(gei)〉 PROJECT FROM JAPAN. 医師・アーティストの陣内良飛による医療と藝術の融合を目指すプロジェクト。",
     "keywords": "IGEI, 医藝, 陣内良飛, 医療, 藝術, アート, Ryoto Jinnai",
     "url": "https://igei-med-art.com/",
     "ogImage": "img/logo.jpg",
@@ -124,10 +124,10 @@
           "date": "2023 / TIERS ART GALLERY ",
           "text": "",
           "images": [
-            "img/1789196843759-1.jpeg"
+            "img/1789450649570-0.jpeg"
           ],
           "link": "https://artsticker.app/events/9176",
-          "updated": "2026-09-12T07:07:06"
+          "updated": "2026-09-15T05:37:29"
         }
       ]
     },
